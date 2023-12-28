@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://7l2v6e7pekj6"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_f3dqi"]
+[ext_resource type="Texture2D" uid="uid://e0vyh1jffxql" path="res://assets/blueball.png" id="1_o0rm0"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1ji3o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_o0rm0")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qh6du"]
+radius = 66.0
+height = 138.0
+
+[node name="Player" type="Area2D"]
+script = ExtResource("1_f3dqi")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_1ji3o")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_qh6du")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

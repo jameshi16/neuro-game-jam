@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://ds6u2am7kkxbo"]
+
+[ext_resource type="Texture2D" uid="uid://c4ku0vmgijne6" path="res://assets/redball.png" id="1_s2ofl"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pk0lj"]
+radius = 66.0
+height = 136.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vrsmt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_s2ofl")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="Enemy" type="RigidBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_pk0lj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_vrsmt")
+animation = &"idle"
