@@ -1,12 +1,14 @@
 [gd_scene load_steps=2 format=3 uid="uid://b4d41mh235v"]
 
-[ext_resource type="Script" path="res://ui.gd" id="1_syl3g"]
+[ext_resource type="Script" path="res://hud.gd" id="1_syl3g"]
 
-[node name="UI" type="CanvasLayer"]
+[node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_syl3g")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
-offset_right = 294.0
-offset_bottom = 88.0
+offset_left = 16.0
+offset_top = 6.0
+offset_right = 310.0
+offset_bottom = 94.0
 theme_override_font_sizes/normal_font_size = 64
-text = "Score:"
+text = "Score: 0"
