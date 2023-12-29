@@ -1,9 +1,14 @@
 extends Node
 
 @export var item_scene: PackedScene
+
+# Metadata
 var tilemap_size
 var tilemap_scale
 var screen_size
+
+# Game variables
+var score = 0
 
 func ready_up_camera():
 	# Sets the camera view to the whole world, then sets the current viewpoint camera
@@ -35,10 +40,16 @@ func _ready():
 		var item_instance = item_scene.instantiate()
 		item_instance.position = item_position
 		add_child(item_instance)
+		item_instance.collected.connect(update_score)
+		# item_instance.collected.connect($Player.update_score)
 
-	ready_up_camera()
+	# TODO: need to make the world zoom out to this camera ready_up_camera()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+
+func update_score():
+	score += 1
+	$UI.update_score(score)
