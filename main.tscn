@@ -1639,9 +1639,6 @@ map_size_y = 100
 
 [node name="Player" parent="." instance=ExtResource("4_85l7j")]
 z_index = 1
-default_speed = 400
-sprint_mod = 2
-default_health = 100
 knockback_speed = 1000
 
 [node name="TileMap" type="TileMap" parent="."]

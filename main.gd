@@ -82,8 +82,8 @@ func _process(delta):
 	pass
 
 
-func update_score():
-	score += 1
+func update_score(item: Item):
+	score += item.worth_to_score[item.worth]
 	$UI.update_score(score)
 
 
