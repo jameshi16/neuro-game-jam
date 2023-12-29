@@ -87,6 +87,12 @@ func update_score():
 	$UI.update_score(score)
 
 
+func fill_with_with_collision_tiles():
+	for i in tilemap_size.x:
+		for j in tilemap_size.y:
+			$TileMap.set_cell(-1, Vector2(i, j), 0, Vector2(0, 0))
+
+
 func reset():
 	items_to_collect = []
 	$Player.reset(Vector2(0, 0))
@@ -97,7 +103,9 @@ func reset():
 	var bounding_box = Rect2(Vector2(0, 0), tilemap_size)
 	var level_gen = LevelGenerator.new(Vector2(0, 0), bounding_box, generation_steps)
 	var path = level_gen.generate_level()
-	print($TileMap.get_layer_name(-1))
+
+	# fill with the collision tiles first
+	fill_with_with_collision_tiles()
 	$TileMap.set_cells_terrain_connect(-1, path, terrain_set, terrain, false)
 
 	for n in 10:

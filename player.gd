@@ -1,4 +1,5 @@
-extends Area2D
+extends CharacterBody2D
+class_name Player
 signal hit
 signal player_died
 
@@ -7,34 +8,35 @@ signal player_died
 @export var default_speed = 400
 @export var sprint_mod = 2
 @export var default_health = 100
-@export var knockback_speed = 3000
+@export var knockback_speed = 2000
 var screen_size
 var keys_disabled = true
 var speed = default_speed
 var health = default_health
-var acceleration = Vector2.ZERO
+var acceleration = Vector2(0, 0)
+var invincible = false
 
 
 func process_keys(delta):
-	var velocity = Vector2.ZERO
+	var vel = Vector2.ZERO
 	if Input.is_action_pressed("move_left"):
-		velocity.x -= 1
+		vel.x -= 1
 	if Input.is_action_pressed("move_right"):
-		velocity.x += 1
+		vel.x += 1
 	if Input.is_action_pressed("move_up"):
-		velocity.y -= 1
+		vel.y -= 1
 	if Input.is_action_pressed("move_down"):
-		velocity.y += 1
+		vel.y += 1
 
-	if velocity.length() > 0:
-		velocity = velocity.normalized() * speed
+	if vel.length() > 0:
+		vel = vel.normalized() * speed
 		if Input.is_action_pressed("sprint"):
-			velocity *= sprint_mod
+			vel *= sprint_mod
 			$AnimatedSprite2D.play("idle")
 	else:
 		$AnimatedSprite2D.stop()
 
-	position += velocity * delta
+	move_and_collide(vel * delta)
 	# TODO: We need to correctly obtain the world boundary. Likely need to do it via the tilemap or something
 	# position = position.clamp(Vector2.ZERO, screen_size)
 
@@ -46,59 +48,55 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if !keys_disabled:
-		process_keys(delta)
 	check_game_over()
 
-	# any leftover acceleration (possibly from knockbacks)
-	position += acceleration * delta
-
-
-func _on_body_entered(_body: Node2D):
-	# TODO: Probably should flash because damaged
-	hit.emit()
-
+func _physics_process(delta):
+	if !keys_disabled:
+		process_keys(delta)
+	move_and_collide(acceleration * delta)
 
 func reset_camera_view():
 	$Camera2D.make_current()
 
-
 func reset(pos):
-	acceleration = Vector2(0, 0)
+	stop_every_timer()
 	reset_camera_view()
 	position = pos
+	acceleration = Vector2(0, 0)
 	show()
 	speed = default_speed
 	health = default_health
 	$CollisionShape2D.disabled = false
-
+	invincible = false
 
 func check_game_over():
 	if health <= 0:
 		keys_disabled = true
-		$KnockbackTimer.stop()
+		stop_every_timer()
 		player_died.emit()
-		# reset(Vector2(0, 0))
 
+func stop_every_timer():
+	$KnockbackTimer.stop()
+	$InvincibilityTimer.stop()
+
+func enemy_damages_player(enemy: Enemy):
+	if invincible:
+		return
+	health -= 10
+	hit.emit()
+	knockback(enemy.position)
 
 func knockback(enemy_pos: Vector2):
 	# inverse enemy position and then normalize
-	var velocity = (position - enemy_pos).normalized() * knockback_speed
-	# start a timer for 500ms, move the player in the direction of the above vector
+	var vel = (position - enemy_pos).normalized() * knockback_speed
 	keys_disabled = true
-	# position += velocity
-	acceleration = velocity
+	acceleration = vel
 	$KnockbackTimer.start()
+	trigger_invincibility()
 
-
-func _on_area_shape_entered(
-	area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int
-):
-	if area is MeleeEnemy:
-		health -= 10
-		knockback(area.position)
-		hit.emit()
-	pass  # Replace with function body.
+func trigger_invincibility():
+	$InvincibilityTimer.start()
+	invincible = true
 
 
 func _on_knockback_timer_timeout():
@@ -107,4 +105,7 @@ func _on_knockback_timer_timeout():
 	# solution 2: ZA WORLDO, enemies shouldn't be moving during the worldview anyway
 	keys_disabled = false
 	acceleration = Vector2(0, 0)
-	# pass # Replace with function body.
+
+
+func _on_invincibility_timer_timeout() -> void:
+	invincible = false

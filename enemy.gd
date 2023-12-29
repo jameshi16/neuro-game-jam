@@ -1,4 +1,5 @@
-extends Area2D
+extends CharacterBody2D
+class_name Enemy
 
 @export var speed = 100
 @export var health = 100
@@ -11,7 +12,10 @@ func _ready():
 
 func _physics_process(delta):
 	if target:
-		Steering.follow_linear(self, target.position, speed, delta)
+		var collision = Steering.follow_linear(self, target.position, speed, delta)
+		if collision and collision.get_collider() is Player:
+			var player: Player = collision.get_collider()
+			player.enemy_damages_player(self)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

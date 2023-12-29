@@ -11,8 +11,8 @@ func _ready():
 func _process(delta):
 	pass
 
-func _on_area_shape_entered(_area_rid, area, _area_shape_index, _local_shape_index):
-	if area.name != 'Player':
+func _on_body_entered(body:Node2D) -> void:
+	if body.name != 'Player':
 		return
 
 	hide()
