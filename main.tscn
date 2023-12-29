@@ -468,7 +468,8 @@ script = ExtResource("1_je2qw")
 item_scene = ExtResource("5_l1fqu")
 
 [node name="Player" parent="." instance=ExtResource("4_85l7j")]
-z_index = 999
+z_index = 1
+sprint_mod = 12
 
 [node name="TileMap" type="TileMap" parent="."]
 scale = Vector2(5, 5.988)

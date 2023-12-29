@@ -1,9 +1,10 @@
-extends Node2D
+extends Area2D
 signal hit
 
 # add a variable that adjusts speed
 
 @export var speed = 400
+@export var sprint_mod = 2
 var screen_size
 
 # Called when the node enters the scene tree for the first time.
@@ -25,6 +26,8 @@ func _process(delta):
 
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
+		if Input.is_action_pressed("sprint"):
+			velocity *= sprint_mod
 		$AnimatedSprite2D.play("idle")
 	else:
 		$AnimatedSprite2D.stop()
@@ -37,3 +40,8 @@ func _process(delta):
 func _on_body_entered(_body: Node2D):
 	# TODO: Probably should flash because damaged
 	hit.emit()
+
+func reset(pos):
+	position = pos
+	show()
+	$CollisionShape2D.disabled = false
