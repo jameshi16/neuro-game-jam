@@ -87,4 +87,4 @@ func reset():
 	pan_entire_world()
 
 	# HACK+debug: make player the enemy follower target
-	$Enemy.target = $Player
+	$MeleeEnemy.target = $Player

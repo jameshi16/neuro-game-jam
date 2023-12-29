@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends Area2D
 
 @export var speed = 100
 @export var health = 100

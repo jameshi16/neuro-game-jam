@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://deu1j0ylajktt"]
+[gd_scene load_steps=13 format=3 uid="uid://deu1j0ylajktt"]
 
 [ext_resource type="Texture2D" uid="uid://ckabt13e22v7m" path="res://assets/tiles/Props.png" id="1_2fcvf"]
 [ext_resource type="Script" path="res://main.gd" id="1_je2qw"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://7l2v6e7pekj6" path="res://player.tscn" id="4_85l7j"]
 [ext_resource type="PackedScene" uid="uid://bqghgbvpu0p5x" path="res://item.tscn" id="5_l1fqu"]
 [ext_resource type="PackedScene" uid="uid://b4d41mh235v" path="res://hud.tscn" id="7_4vlye"]
+[ext_resource type="PackedScene" uid="uid://gfw0s610axs5" path="res://melee_enemy.tscn" id="8_u7qr8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dbs4p"]
 texture = ExtResource("1_2fcvf")
@@ -485,3 +486,6 @@ anchor_mode = 0
 metadata/_edit_group_ = true
 
 [node name="UI" parent="." instance=ExtResource("7_4vlye")]
+
+[node name="MeleeEnemy" parent="." instance=ExtResource("8_u7qr8")]
+position = Vector2(669, 380)

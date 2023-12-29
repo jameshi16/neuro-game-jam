@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://gfw0s610axs5"]
+
+[ext_resource type="PackedScene" uid="uid://ds6u2am7kkxbo" path="res://enemy.tscn" id="1_8pypt"]
+[ext_resource type="Script" path="res://melee_enemy.gd" id="2_yw8vu"]
+
+[node name="MeleeEnemy" instance=ExtResource("1_8pypt")]
+script = ExtResource("2_yw8vu")
