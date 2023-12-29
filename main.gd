@@ -85,3 +85,6 @@ func reset():
 		items_to_collect.append(item_instance)
 
 	pan_entire_world()
+
+	# HACK+debug: make player the enemy follower target
+	$Enemy.target = $Player
