@@ -1,11 +1,15 @@
 extends Node
 
 @export var item_scene: PackedScene
+
+# TODO: make these take in names instead so that i can reduce future programmer error
 @export var terrain_set: int = 0
 @export var terrain: int = 0
 @export var generation_steps: int = 2000
 @export var turning_steps = 8
 @export var turn_early_probability = 0.02
+@export var map_size_x = 50
+@export var map_size_y = 20
 
 # Metadata
 var tilemap_size
@@ -61,7 +65,10 @@ func _ready():
 	LevelGenerator.turn_early_probability = turn_early_probability
 
 	screen_size = get_viewport().size
-	tilemap_size = $TileMap.get_used_rect().size
+	# NOTE: This was for fixed tilemaps
+	# tilemap_size = $TileMap.get_used_rect().size
+	# tilemap_size = Vector2(800, 600)
+	tilemap_size = Vector2(map_size_x, map_size_y)
 
 	# calculates the full scale. there is probably a correct way to do tiles, but i'm dumb
 	tilemap_scale = $TileMap.tile_set.tile_size
@@ -90,6 +97,7 @@ func reset():
 	var bounding_box = Rect2(Vector2(0, 0), tilemap_size)
 	var level_gen = LevelGenerator.new(Vector2(0, 0), bounding_box, generation_steps)
 	var path = level_gen.generate_level()
+	print($TileMap.get_layer_name(-1))
 	$TileMap.set_cells_terrain_connect(-1, path, terrain_set, terrain, false)
 
 	for n in 10:
