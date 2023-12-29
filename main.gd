@@ -1,6 +1,11 @@
 extends Node
 
 @export var item_scene: PackedScene
+@export var terrain_set: int = 0
+@export var terrain: int = 0
+@export var generation_steps: int = 2000
+@export var turning_steps = 8
+@export var turn_early_probability = 0.02
 
 # Metadata
 var tilemap_size
@@ -52,6 +57,9 @@ func pan_entire_world():
 # TODO: need to multiple with tile size as well, hopefully the fact that I put a TODO means I will remember clueless
 # TODO: add camera limit probably
 func _ready():
+	LevelGenerator.turning_steps = turning_steps
+	LevelGenerator.turn_early_probability = turn_early_probability
+
 	screen_size = get_viewport().size
 	tilemap_size = $TileMap.get_used_rect().size
 
@@ -77,6 +85,12 @@ func reset():
 	$Player.reset(Vector2(0, 0))
 	score = 0
 	$UI.update_health(100)
+
+	# generate a world here (TODO: tilemap_size is a temporary size)
+	var bounding_box = Rect2(Vector2(0, 0), tilemap_size)
+	var level_gen = LevelGenerator.new(Vector2(0, 0), bounding_box, generation_steps)
+	var path = level_gen.generate_level()
+	$TileMap.set_cells_terrain_connect(-1, path, terrain_set, terrain, false)
 
 	for n in 10:
 		var item_position = Vector2(
