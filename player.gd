@@ -30,7 +30,8 @@ func _process(delta):
 		$AnimatedSprite2D.stop()
 
 	position += velocity * delta
-	position = position.clamp(Vector2.ZERO, screen_size)
+	# TODO: We need to correctly obtain the world boundary. Likely need to do it via the tilemap or something
+	# position = position.clamp(Vector2.ZERO, screen_size)
 
 
 func _on_body_entered(_body: Node2D):
