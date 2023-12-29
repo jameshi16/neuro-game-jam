@@ -36,7 +36,8 @@ func process_keys(delta):
 	else:
 		$AnimatedSprite2D.stop()
 
-	move_and_collide(vel * delta)
+	velocity = vel
+	move_and_slide()
 
 
 # Called when the node enters the scene tree for the first time.

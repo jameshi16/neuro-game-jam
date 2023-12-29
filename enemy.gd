@@ -29,5 +29,5 @@ func _process(delta):
 
 
 func _on_navigation_timer_timeout() -> void:
-	$NavigationAgent2D.target_position = target.position
-	pass
+	if target:
+		$NavigationAgent2D.target_position = target.position

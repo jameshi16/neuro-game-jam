@@ -1880,11 +1880,11 @@ pattern_0 = SubResource("TileMapPattern_gcdkx")
 [node name="Main" type="Node"]
 script = ExtResource("1_je2qw")
 item_scene = ExtResource("5_l1fqu")
-generation_steps = 400
-turning_steps = 4
+enemies = Array[PackedScene]([ExtResource("8_u7qr8")])
+generation_steps = 1000
 turn_early_probability = 0.11
 map_size_x = 60
-map_size_y = 100
+map_size_y = 40
 
 [node name="Player" parent="." instance=ExtResource("4_85l7j")]
 z_index = 1
@@ -1903,9 +1903,6 @@ anchor_mode = 0
 metadata/_edit_group_ = true
 
 [node name="UI" parent="." instance=ExtResource("7_4vlye")]
-
-[node name="MeleeEnemy" parent="." instance=ExtResource("8_u7qr8")]
-position = Vector2(669, 380)
 
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
 [connection signal="player_died" from="Player" to="." method="_on_player_player_died"]

@@ -1,6 +1,7 @@
 extends Node
 
 @export var item_scene: PackedScene
+@export var enemies: Array[PackedScene]
 
 # TODO: make these take in names instead so that i can reduce future programmer error
 @export var terrain_set: int = 0
@@ -11,6 +12,8 @@ extends Node
 @export var map_size_x = 50
 @export var map_size_y = 20
 @export var navigation_layer = 0
+@export var num_enemies = 5
+@export var num_items = 10
 
 # Metadata
 var tilemap_size
@@ -19,14 +22,15 @@ var screen_size
 
 # Game variables
 var score = 0
-var items_to_collect: Array[Node] = []
+var items_to_collect: Array[Item] = []
+var enemies_in_scene: Array[Enemy] = []
 
 # TODO: maybe need state manager? but it's a jam, so I'll just leave a note
 
 
 func ready_up_camera():
 	$Camera2D.set_position(Vector2(0, 0))
-	var larger_scale = max(
+	var larger_scale = min(
 		screen_size.x / float(tilemap_scale.x * tilemap_size.x),
 		screen_size.y / float(tilemap_scale.y * tilemap_size.y)
 	)
@@ -85,6 +89,7 @@ func _process(delta):
 
 func update_score(item: Item):
 	score += item.worth_to_score[item.worth]
+	items_to_collect.erase(item)
 	$UI.update_score(score)
 
 
@@ -94,42 +99,80 @@ func fill_with_with_collision_tiles():
 			$TileMap.set_cell(navigation_layer, Vector2(i - 1, j - 1), 0, Vector2(0, 0))
 
 
-func reset():
+func spawn_mobs(locations: Array):
+	var navmap = $TileMap.get_navigation_map(navigation_layer)
+	for location in locations:
+		var enemy = enemies.pick_random().instantiate()
+		enemy.position = Vector2(
+			(location.x + 0.5) * tilemap_scale.x, (location.y + 0.5) * tilemap_scale.y
+		)
+		add_child(enemy)
+		enemy.target = $Player
+		enemy.set_navigation_map(navmap)
+		enemies_in_scene.append(enemy)
+
+
+func spawn_items(locations: Array):
+	for location in locations:
+		var item_instance = item_scene.instantiate()
+		item_instance.position = Vector2(
+			(location.x + 0.5) * tilemap_scale.x, (location.y + 0.5) * tilemap_scale.y
+		)
+		add_child(item_instance)
+		item_instance.collected.connect(update_score)
+		items_to_collect.append(item_instance)
+
+
+func free_items():
+	for item in items_to_collect:
+		item.queue_free()
 	items_to_collect = []
-	$Player.reset(Vector2(10, 10))
+
+
+func free_enemies():
+	for enemy in enemies_in_scene:
+		enemy.queue_free()
+	enemies_in_scene = []
+
+func reset():
+	# generate a world here (TODO: tilemap_size is a temporary size)
+	var bounding_box = Rect2(Vector2(0, 0), tilemap_size)
+	var start_pos = Vector2(
+		(randi() % roundi(tilemap_size.x)),
+		(randi() % roundi(tilemap_size.y))
+	)
+
+	var global_pos = Vector2(
+		(start_pos.x + 0.5) * tilemap_scale.x, (start_pos.y + 0.5) * tilemap_scale.y
+		)
+
+	free_items()
+	free_enemies()
+	$Player.reset(global_pos)
 	score = 0
 	$UI.update_health(100)
 
-	# generate a world here (TODO: tilemap_size is a temporary size)
-	var bounding_box = Rect2(Vector2(0, 0), tilemap_size)
-	var level_gen = LevelGenerator.new(Vector2(0, 0), bounding_box, generation_steps)
+	var level_gen = LevelGenerator.new(start_pos, bounding_box, generation_steps)
 	var path = level_gen.generate_level()
 
 	# fill with the collision tiles first
 	fill_with_with_collision_tiles()
 	$TileMap.set_cells_terrain_connect(navigation_layer, path, terrain_set, terrain, false)
 
-	for n in 10:
-		var item_position = Vector2(
-			randf_range(0, tilemap_size.x * tilemap_scale.x),
-			randf_range(0, tilemap_size.y * tilemap_scale.y)
-		)
-		var item_instance = item_scene.instantiate()
-		item_instance.position = item_position
-		add_child(item_instance)
-		item_instance.collected.connect(update_score)
-		items_to_collect.append(item_instance)
+	var item_locations = path.duplicate()
+	item_locations.shuffle()
+	spawn_items(item_locations.slice(0, num_items))
+
+	var mob_locations = path.duplicate()
+	mob_locations.shuffle()
+	spawn_mobs(mob_locations.slice(0, num_enemies))
 
 	pan_entire_world()
-
-	# HACK+debug: make player the enemy follower target
-	$MeleeEnemy.target = $Player
-	$MeleeEnemy.set_navigation_map($TileMap.get_navigation_map(navigation_layer))
 
 
 func _on_player_hit():
 	$UI.update_health($Player.health)
 
+
 func _on_player_player_died():
-	# TODO: need a reset here
 	reset()
