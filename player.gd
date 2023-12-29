@@ -1,5 +1,6 @@
 extends Area2D
 signal hit
+signal player_died
 
 # add a variable that adjusts speed
 
@@ -63,6 +64,7 @@ func reset_camera_view():
 
 
 func reset(pos):
+	acceleration = Vector2(0, 0)
 	reset_camera_view()
 	position = pos
 	show()
@@ -73,7 +75,10 @@ func reset(pos):
 
 func check_game_over():
 	if health <= 0:
-		reset(Vector2(0, 0))
+		keys_disabled = true
+		$KnockbackTimer.stop()
+		player_died.emit()
+		# reset(Vector2(0, 0))
 
 
 func knockback(enemy_pos: Vector2):
@@ -92,6 +97,7 @@ func _on_area_shape_entered(
 	if area is MeleeEnemy:
 		health -= 10
 		knockback(area.position)
+		hit.emit()
 	pass  # Replace with function body.
 
 

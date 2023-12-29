@@ -73,6 +73,11 @@ func update_score():
 
 
 func reset():
+	items_to_collect = []
+	$Player.reset(Vector2(0, 0))
+	score = 0
+	$UI.update_health(100)
+
 	for n in 10:
 		var item_position = Vector2(
 			randf_range(0, tilemap_size.x * tilemap_scale.x),
@@ -88,3 +93,11 @@ func reset():
 
 	# HACK+debug: make player the enemy follower target
 	$MeleeEnemy.target = $Player
+
+
+func _on_player_hit():
+	$UI.update_health($Player.health)
+
+func _on_player_player_died():
+	# TODO: need a reset here
+	reset()

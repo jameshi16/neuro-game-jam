@@ -12,4 +12,7 @@ func _process(delta):
 
 
 func update_score(score: int):
-	$RichTextLabel.text = "Score: %d" % score
+	$Score.text = "Score: %d" % score
+
+func update_health(health: int):
+	$Health.text = "Health: %d" % health

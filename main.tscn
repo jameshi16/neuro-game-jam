@@ -471,6 +471,7 @@ item_scene = ExtResource("5_l1fqu")
 
 [node name="Player" parent="." instance=ExtResource("4_85l7j")]
 z_index = 1
+knockback_speed = 1000
 
 [node name="TileMap" type="TileMap" parent="."]
 scale = Vector2(5, 5.988)
@@ -489,3 +490,6 @@ metadata/_edit_group_ = true
 
 [node name="MeleeEnemy" parent="." instance=ExtResource("8_u7qr8")]
 position = Vector2(669, 380)
+
+[connection signal="hit" from="Player" to="." method="_on_player_hit"]
+[connection signal="player_died" from="Player" to="." method="_on_player_player_died"]
