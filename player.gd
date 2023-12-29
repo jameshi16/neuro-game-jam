@@ -37,8 +37,6 @@ func process_keys(delta):
 		$AnimatedSprite2D.stop()
 
 	move_and_collide(vel * delta)
-	# TODO: We need to correctly obtain the world boundary. Likely need to do it via the tilemap or something
-	# position = position.clamp(Vector2.ZERO, screen_size)
 
 
 # Called when the node enters the scene tree for the first time.

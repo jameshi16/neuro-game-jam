@@ -10,6 +10,7 @@ extends Node
 @export var turn_early_probability = 0.02
 @export var map_size_x = 50
 @export var map_size_y = 20
+@export var navigation_layer = 0
 
 # Metadata
 var tilemap_size
@@ -88,14 +89,14 @@ func update_score(item: Item):
 
 
 func fill_with_with_collision_tiles():
-	for i in tilemap_size.x:
-		for j in tilemap_size.y:
-			$TileMap.set_cell(-1, Vector2(i, j), 0, Vector2(0, 0))
+	for i in tilemap_size.x + 2:
+		for j in tilemap_size.y + 2:
+			$TileMap.set_cell(navigation_layer, Vector2(i - 1, j - 1), 0, Vector2(0, 0))
 
 
 func reset():
 	items_to_collect = []
-	$Player.reset(Vector2(0, 0))
+	$Player.reset(Vector2(10, 10))
 	score = 0
 	$UI.update_health(100)
 
@@ -106,7 +107,7 @@ func reset():
 
 	# fill with the collision tiles first
 	fill_with_with_collision_tiles()
-	$TileMap.set_cells_terrain_connect(-1, path, terrain_set, terrain, false)
+	$TileMap.set_cells_terrain_connect(navigation_layer, path, terrain_set, terrain, false)
 
 	for n in 10:
 		var item_position = Vector2(
@@ -123,6 +124,7 @@ func reset():
 
 	# HACK+debug: make player the enemy follower target
 	$MeleeEnemy.target = $Player
+	$MeleeEnemy.set_navigation_map($TileMap.get_navigation_map(navigation_layer))
 
 
 func _on_player_hit():

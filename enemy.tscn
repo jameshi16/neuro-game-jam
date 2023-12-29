@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://c4ku0vmgijne6" path="res://assets/redball.png" id="1_s2ofl"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pk0lj"]
-radius = 66.0
-height = 136.0
+radius = 27.0
+height = 54.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vrsmt"]
 animations = [{
@@ -19,11 +19,23 @@ animations = [{
 }]
 
 [node name="Enemy" type="CharacterBody2D"]
+motion_mode = 1
 script = ExtResource("1_q7ji2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_pk0lj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.4, 0.4)
 sprite_frames = SubResource("SpriteFrames_vrsmt")
 animation = &"idle"
+
+[node name="NavigationTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_postprocessing = 1
+debug_enabled = true
+
+[connection signal="timeout" from="NavigationTimer" to="." method="_on_navigation_timer_timeout"]
+[connection signal="path_changed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_path_changed"]

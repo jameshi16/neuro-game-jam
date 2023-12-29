@@ -8,16 +8,26 @@ var target: Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass
 
 func _physics_process(delta):
 	if target:
-		var collision = Steering.follow_linear(self, target.position, speed, delta)
+		var direction = $NavigationAgent2D.get_next_path_position()
+		var collision = move_and_collide((direction - position).normalized() * speed * delta)
 		if collision and collision.get_collider() is Player:
 			var player: Player = collision.get_collider()
 			player.enemy_damages_player(self)
 
+func set_navigation_map(navigation_map: RID):
+	# Godot literally doesn't say it defaults to the background layer by default, I am very madge
+	$NavigationAgent2D.set_navigation_map(navigation_map)
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	pass
+
+
+func _on_navigation_timer_timeout() -> void:
+	$NavigationAgent2D.target_position = target.position
 	pass

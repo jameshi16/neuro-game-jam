@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://e0vyh1jffxql" path="res://assets/blueball.png" id="1_o0rm0"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qh6du"]
-radius = 30.0
-height = 62.0
+radius = 27.0
+height = 54.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1ji3o"]
 animations = [{
@@ -33,7 +33,7 @@ one_shot = true
 shape = SubResource("CapsuleShape2D_qh6du")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.4, 0.4)
 sprite_frames = SubResource("SpriteFrames_1ji3o")
 animation = &"idle"
 

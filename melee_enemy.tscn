@@ -5,5 +5,3 @@
 
 [node name="MeleeEnemy" instance=ExtResource("1_8pypt")]
 script = ExtResource("2_yw8vu")
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
