@@ -9,6 +9,7 @@ var screen_size
 
 # Game variables
 var score = 0
+var items_to_collect: Array[Node] = []
 
 # TODO: maybe need state manager? but it's a jam, so I'll just leave a note
 
@@ -25,9 +26,13 @@ func ready_up_camera():
 	$Camera2D.make_current()
 
 
-func reset_camera_view():
+func level_begin():
+	# This function should be called as part of the callback to the timer.
+	# Signifies the beginning of the contallable game
 	$Player.keys_disabled = false
 	$Player.reset_camera_view()
+	for item in items_to_collect:
+		item.hide()
 
 
 func pan_entire_world():
@@ -40,7 +45,7 @@ func pan_entire_world():
 	timer.one_shot = true
 	timer.start()
 	ready_up_camera()
-	timer.timeout.connect(reset_camera_view)
+	timer.timeout.connect(level_begin)
 
 
 # Called when the node enters the scene tree for the first time.
@@ -48,7 +53,6 @@ func pan_entire_world():
 # TODO: add camera limit probably
 func _ready():
 	screen_size = get_viewport().size
-	print(screen_size)
 	tilemap_size = $TileMap.get_used_rect().size
 
 	# calculates the full scale. there is probably a correct way to do tiles, but i'm dumb
@@ -78,5 +82,6 @@ func reset():
 		item_instance.position = item_position
 		add_child(item_instance)
 		item_instance.collected.connect(update_score)
+		items_to_collect.append(item_instance)
 
 	pan_entire_world()
