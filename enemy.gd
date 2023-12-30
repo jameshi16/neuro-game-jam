@@ -1,11 +1,13 @@
 extends CharacterBody2D
 class_name Enemy
 
-signal dead(score: float)
+signal dead(enemy: Enemy, score: float)
 
-@export var speed = 100
-@export var health = 100
+@export var max_speed = 100
+@export var max_health = 100
 
+var speed = max_speed
+var health = max_health
 var target: Node
 var acceleration: Vector2 = Vector2.ZERO
 var invincible = false
@@ -63,7 +65,7 @@ func receive_damage(damage: int) -> void:
 
 	health -= damage
 	if health <= 0:
-		dead.emit(speed * health * 0.001)
+		dead.emit(self, (max_speed + max_health) * 0.01)
 		physics_enabled = false
 		hide()
 	$HealthBar.value = health

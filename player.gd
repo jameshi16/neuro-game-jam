@@ -87,7 +87,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	check_game_over()
+	pass
 
 
 func update_stamina(new_stamina: float):
@@ -169,6 +169,7 @@ func enemy_damages_player(enemy: Enemy):
 	health -= 10
 	hit.emit()
 	knockback(enemy.position)
+	check_game_over()
 
 
 func knockback(enemy_pos: Vector2):

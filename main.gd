@@ -150,6 +150,9 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if !$GameOverTimer.is_stopped():
+		return
+
 	# special levels cannot be restarted
 	if !restart_cooling_down and Input.is_action_pressed("restart_level") and !current_special_level:
 		reset()
@@ -212,9 +215,15 @@ func free_enemies():
 	enemies_in_scene = []
 
 func game_over(lost: bool):
+	free_items()
+	free_enemies()
 	if lost:
-		score = 0
-		print("player died")
+		score = min(score - 10, 0)
+		$UI.hide()
+		$Camera2D.get_node("MapOverviewUI").hide()
+		$GameOver.show()
+		$GameOverTimer.start()
+		return
 
 	reset()
 
@@ -224,9 +233,10 @@ func check_cleared():
 
 
 func reset():
-	level_began = false
 	free_items()
 	free_enemies()
+	level_began = false
+	$GameOver.hide()
 	$UI.update_health(100)
 
 	if current_special_level:
@@ -256,9 +266,14 @@ func _on_restart_cooldown_timer_timeout() -> void:
 func _on_player_stamina_changed() -> void:
 	$UI.update_stamina($Player.stamina)
 
-func _on_enemy_die(defeat_score: float) -> void:
+func _on_enemy_die(enemy: Enemy, defeat_score: float) -> void:
 	score += defeat_score
 	$UI.update_score(score)
+	enemies_in_scene.erase(enemy)
+	enemy.queue_free()
 
 func _on_map_timer_timeout() -> void:
 	game_over(false)
+
+func _on_game_over_timer_timeout() -> void:
+	reset()

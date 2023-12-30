@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://deu1j0ylajktt"]
+[gd_scene load_steps=36 format=3 uid="uid://deu1j0ylajktt"]
 
 [ext_resource type="Texture2D" uid="uid://ckabt13e22v7m" path="res://assets/tiles/Props.png" id="1_2fcvf"]
 [ext_resource type="Script" path="res://main.gd" id="1_je2qw"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://b4d41mh235v" path="res://hud.tscn" id="7_4vlye"]
 [ext_resource type="PackedScene" uid="uid://gfw0s610axs5" path="res://melee_enemy.tscn" id="8_u7qr8"]
 [ext_resource type="PackedScene" uid="uid://b8eeu5cfqg5" path="res://map_overview_ui.tscn" id="9_vueip"]
+[ext_resource type="PackedScene" uid="uid://c2p34bkdbd44p" path="res://game_over.tscn" id="11_mq3pp"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_gcdkx"]
 tile_data = PackedInt32Array(0, 3, 0, 65536, 3, 1, 131072, 3, 2, 196608, 3, 3, 262144, 3, 4, 1, 65539, 0, 65537, 65539, 1, 131073, 65539, 2, 196609, 65539, 3, 262145, 65539, 4, 327681, 65539, 5, 2, 131075, 0, 65538, 131075, 1, 131074, 131075, 2, 196610, 131075, 3, 262146, 131075, 4)
@@ -1915,7 +1916,14 @@ layer_1/tile_data = PackedInt32Array()
 
 [node name="UI" parent="." instance=ExtResource("7_4vlye")]
 
+[node name="GameOver" parent="." instance=ExtResource("11_mq3pp")]
+visible = false
+
 [node name="RestartCooldownTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="GameOverTimer" type="Timer" parent="."]
+wait_time = 3.0
 one_shot = true
 
 [node name="MapTimer" type="Timer" parent="."]
@@ -1926,4 +1934,5 @@ one_shot = true
 [connection signal="player_died" from="Player" to="." method="_on_player_player_died"]
 [connection signal="stamina_changed" from="Player" to="." method="_on_player_stamina_changed"]
 [connection signal="timeout" from="RestartCooldownTimer" to="." method="_on_restart_cooldown_timer_timeout"]
+[connection signal="timeout" from="GameOverTimer" to="." method="_on_game_over_timer_timeout"]
 [connection signal="timeout" from="MapTimer" to="." method="_on_map_timer_timeout"]
