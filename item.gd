@@ -19,17 +19,17 @@ var in_contact = false
 func _ready():
 	if override_worth and override_worth != ItemWorth.NONE:
 		worth = override_worth
-
-	# randomly choose an item worth if not overwritten (weighted)
-	var rand = randf()
-	if rand < 0.5:
-		worth = ItemWorth.LOW
-	elif rand < 0.75:
-		worth = ItemWorth.MEDIUM
-	elif rand < 0.9:
-		worth = ItemWorth.HIGH
 	else:
-		worth = ItemWorth.RARE
+		# randomly choose an item worth if not overwritten (weighted)
+		var rand = randf()
+		if rand < 0.5:
+			worth = ItemWorth.LOW
+		elif rand < 0.75:
+			worth = ItemWorth.MEDIUM
+		elif rand < 0.9:
+			worth = ItemWorth.HIGH
+		else:
+			worth = ItemWorth.RARE
 
 	match worth:
 		ItemWorth.LOW:

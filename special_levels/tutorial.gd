@@ -23,12 +23,24 @@ class BaseState:
 	func advance_maybe() -> BaseState:
 		return null
 
+class Stage4State extends BaseState:
+	pass
+
 class Stage3State extends BaseState:
+	var attacked = false
+
 	func _process(_delta: float) -> void:
-		return
+		if !keys_enabled:
+			return
+
+		if Input.is_action_pressed("attack"):
+			attacked = true
 
 	func advance_maybe() -> BaseState:
-		return null
+		if attacked:
+			SLB_Tutorial.show_dialogue("tutorial_4")
+			return SLB_Tutorial.Stage4State.new(state_parent)
+		return self
 
 class Stage2State extends BaseState:
 	static var movement_actions = ["move_up", "move_left", "move_right", "move_down"]
@@ -52,7 +64,6 @@ class Stage2State extends BaseState:
 
 		if State.tut_item_displayed:
 			state_parent.get_node("TutorialItem1").hide()
-			# SLB_Tutorial.show_dialogue("tutorial_3_5")
 			return SLB_Tutorial.Stage3State.new(state_parent)
 		return self
 
@@ -80,7 +91,8 @@ class Stage1State extends BaseState:
 			s_pressed = true
 
 	func advance_maybe() -> BaseState:
-		if w_pressed and a_pressed and s_pressed and d_pressed:
+		# world's best code, could have used a bitmask omegalul
+		if [w_pressed, a_pressed, s_pressed, d_pressed].count(true) == 3:
 			SLB_Tutorial.show_dialogue("tutorial_2")
 			return SLB_Tutorial.Stage2State.new(state_parent)
 		return self
@@ -94,6 +106,7 @@ func _ready() -> void:
 	$TutorialItem2.hide()
 	$TutorialItem3.hide()
 	$TutorialItem4.hide()
+
 	DialogueManager.got_dialogue.connect(_on_dialogue_started)
 	DialogueManager.dialogue_ended.connect(_on_dialogue_ended)
 

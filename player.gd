@@ -23,6 +23,7 @@ var health = default_health
 var stamina = default_stamina
 var acceleration = Vector2(0, 0)
 var invincible = false
+@onready var shovel: Shovel = NormalShovel.new(self, $ShovelTimer)
 
 var items_in_contact: Array[Item] = []
 
@@ -31,12 +32,16 @@ var items_in_contact: Array[Item] = []
 func process_keys(_delta):
 	var vel = Vector2.ZERO
 	if Input.is_action_pressed("move_left"):
+		$AnimationPlayer.play("left")
 		vel.x -= 1
 	if Input.is_action_pressed("move_right"):
+		$AnimationPlayer.play("right")
 		vel.x += 1
 	if Input.is_action_pressed("move_up"):
+		$AnimationPlayer.play("up")
 		vel.y -= 1
 	if Input.is_action_pressed("move_down"):
+		$AnimationPlayer.play("down")
 		vel.y += 1
 
 	var new_stamina = stamina
@@ -49,8 +54,8 @@ func process_keys(_delta):
 	else:
 		$AnimatedSprite2D.stop()
 
-	# if !Input.is_action_pressed("sprint"): (i think it's nice to have constant recovery)
-	new_stamina += stamina_recovery_rate
+	if !Input.is_action_pressed("sprint") and !digging:
+		new_stamina += stamina_recovery_rate
 
 	if stamina != new_stamina:
 		update_stamina(new_stamina)
@@ -62,6 +67,7 @@ func process_keys(_delta):
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
+	shovel.attack_landed.connect(player_damages_node)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -91,11 +97,16 @@ func attempt_digging():
 	if digging:
 		update_stamina(stamina - stamina_consumption_rate * digging_stamina_consumption_mod)
 
+func attempt_attack():
+	if Input.is_action_pressed("attack"):
+		shovel.attack($DirectionMarker.position.normalized())
+
 
 func _physics_process(delta):
 	attempt_digging()
 	if !keys_disabled and !digging:
 		process_keys(delta)
+		attempt_attack()
 	move_and_collide(acceleration * delta)
 
 
@@ -129,6 +140,12 @@ func check_game_over():
 func stop_every_timer():
 	$KnockbackTimer.stop()
 	$InvincibilityTimer.stop()
+
+
+func player_damages_node(node: Node2D):
+	if node is Enemy:
+		var enemy: Enemy = node
+		enemy.receive_damage(shovel.damage)
 
 
 func enemy_damages_player(enemy: Enemy):

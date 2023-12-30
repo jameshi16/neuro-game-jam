@@ -34,3 +34,8 @@ func _process(delta):
 func _on_navigation_timer_timeout() -> void:
 	if target:
 		$NavigationAgent2D.target_position = target.position
+
+func receive_damage(damage: int) -> void:
+	health -= damage
+	if health <= 0:
+		queue_free()
