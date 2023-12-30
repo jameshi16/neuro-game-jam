@@ -32,17 +32,29 @@ var items_in_contact: Array[Item] = []
 func process_keys(_delta):
 	var vel = Vector2.ZERO
 	if Input.is_action_pressed("move_left"):
-		$AnimationPlayer.play("left")
 		vel.x -= 1
 	if Input.is_action_pressed("move_right"):
-		$AnimationPlayer.play("right")
 		vel.x += 1
 	if Input.is_action_pressed("move_up"):
-		$AnimationPlayer.play("up")
 		vel.y -= 1
 	if Input.is_action_pressed("move_down"):
-		$AnimationPlayer.play("down")
 		vel.y += 1
+
+	# TODO: Deprecation. The following is no longer used, but is still in the scene just in case.
+	# (may need it for interactions)
+	# it's possible for all buttons to be pressed. so, we do a big
+	# brain move and use the vector to figure out what animation to
+	# play (it's not possible to be up and down at the same time if we think in vectors)
+	var animation_composition = []
+	if vel.y < 0:
+		animation_composition.append("up")
+	if vel.y > 0:
+		animation_composition.append("down")
+	if vel.x < 0:
+		animation_composition.append("left")
+	if vel.x > 0:
+		animation_composition.append("right")
+	$AnimationPlayer.play("_".join(animation_composition))
 
 	var new_stamina = stamina
 	if vel.length() > 0:
@@ -54,7 +66,10 @@ func process_keys(_delta):
 	else:
 		$AnimatedSprite2D.stop()
 
-	if !Input.is_action_pressed("sprint") and !digging:
+	# stamina regen shouldn't happen if we're cooling down from a shovel attack
+	# or digging
+	# or holding sprint
+	if !Input.is_action_pressed("sprint") and !digging and shovel.cooldown_timer.is_stopped():
 		new_stamina += stamina_recovery_rate
 
 	if stamina != new_stamina:
@@ -98,8 +113,8 @@ func attempt_digging():
 		update_stamina(stamina - stamina_consumption_rate * digging_stamina_consumption_mod)
 
 func attempt_attack():
-	if Input.is_action_pressed("attack"):
-		shovel.attack($DirectionMarker.position.normalized())
+	if Input.is_action_pressed("attack") and stamina > 0:
+		shovel.attack(get_local_mouse_position().normalized())
 
 
 func _physics_process(delta):
@@ -145,7 +160,7 @@ func stop_every_timer():
 func player_damages_node(node: Node2D):
 	if node is Enemy:
 		var enemy: Enemy = node
-		enemy.receive_damage(shovel.damage)
+		shovel.apply_shovel_effects_on_enemy(enemy)
 
 
 func enemy_damages_player(enemy: Enemy):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://7l2v6e7pekj6"]
+[gd_scene load_steps=17 format=3 uid="uid://7l2v6e7pekj6"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_f3dqi"]
 [ext_resource type="Texture2D" uid="uid://e0vyh1jffxql" path="res://assets/blueball.png" id="1_o0rm0"]
@@ -54,6 +54,36 @@ tracks/0/keys = {
 "values": [Vector2(0, 111)]
 }
 
+[sub_resource type="Animation" id="Animation_a4m77"]
+resource_name = "down_left"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DirectionMarker:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-111, 111)]
+}
+
+[sub_resource type="Animation" id="Animation_smctv"]
+resource_name = "down_right"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DirectionMarker:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(111, 111)]
+}
+
 [sub_resource type="Animation" id="Animation_324k8"]
 resource_name = "left"
 tracks/0/type = "value"
@@ -99,13 +129,47 @@ tracks/0/keys = {
 "values": [Vector2(0, -111)]
 }
 
+[sub_resource type="Animation" id="Animation_7vs1y"]
+resource_name = "up_left"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DirectionMarker:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-111, -111)]
+}
+
+[sub_resource type="Animation" id="Animation_f2sex"]
+resource_name = "up_right"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DirectionMarker:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(111, -111)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lg8up"]
 _data = {
 "RESET": SubResource("Animation_5spbe"),
 "down": SubResource("Animation_n7j78"),
+"down_left": SubResource("Animation_a4m77"),
+"down_right": SubResource("Animation_smctv"),
 "left": SubResource("Animation_324k8"),
 "right": SubResource("Animation_7igan"),
-"up": SubResource("Animation_bpwj5")
+"up": SubResource("Animation_bpwj5"),
+"up_left": SubResource("Animation_7vs1y"),
+"up_right": SubResource("Animation_f2sex")
 }
 
 [node name="Player" type="CharacterBody2D"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://ds6u2am7kkxbo"]
+[gd_scene load_steps=6 format=3 uid="uid://ds6u2am7kkxbo"]
 
 [ext_resource type="Script" path="res://enemy.gd" id="1_q7ji2"]
 [ext_resource type="Texture2D" uid="uid://c4ku0vmgijne6" path="res://assets/redball.png" id="1_s2ofl"]
@@ -17,6 +17,9 @@ animations = [{
 "name": &"idle",
 "speed": 5.0
 }]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wimga"]
+bg_color = Color(1, 0, 0, 1)
 
 [node name="Enemy" type="CharacterBody2D"]
 motion_mode = 1
@@ -37,5 +40,21 @@ autostart = true
 path_postprocessing = 1
 debug_enabled = true
 
+[node name="KnockbackTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="InvincibilityTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -46.0
+offset_top = -57.0
+offset_right = 45.0
+offset_bottom = -30.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_wimga")
+
 [connection signal="timeout" from="NavigationTimer" to="." method="_on_navigation_timer_timeout"]
 [connection signal="path_changed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_path_changed"]
+[connection signal="timeout" from="KnockbackTimer" to="." method="_on_knockback_timer_timeout"]
+[connection signal="timeout" from="InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]

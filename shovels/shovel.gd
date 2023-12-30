@@ -10,6 +10,7 @@ var cooldown_timer_duration: float = 2.0 :
 var cooldown_timer: Timer
 var player: Player
 var damage = 1
+var stamina = 20
 
 func _init(player_ : Player, shovel_timer_: Timer):
 	player = player_
@@ -17,5 +18,9 @@ func _init(player_ : Player, shovel_timer_: Timer):
 	cooldown_timer.one_shot = true
 	cooldown_timer.wait_time = cooldown_timer_duration
 
+# returns true if an attack was performed
 func attack(_direction: Vector2):
+	pass
+
+func apply_shovel_effects_on_enemy(enemy: Enemy):
 	pass
