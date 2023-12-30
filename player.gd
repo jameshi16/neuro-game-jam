@@ -45,16 +45,16 @@ func process_keys(_delta):
 	# it's possible for all buttons to be pressed. so, we do a big
 	# brain move and use the vector to figure out what animation to
 	# play (it's not possible to be up and down at the same time if we think in vectors)
-	var animation_composition = []
-	if vel.y < 0:
-		animation_composition.append("up")
-	if vel.y > 0:
-		animation_composition.append("down")
-	if vel.x < 0:
-		animation_composition.append("left")
-	if vel.x > 0:
-		animation_composition.append("right")
-	$AnimationPlayer.play("_".join(animation_composition))
+	# var animation_composition = []
+	# if vel.y < 0:
+	# 	animation_composition.append("up")
+	# if vel.y > 0:
+	# 	animation_composition.append("down")
+	# if vel.x < 0:
+	# 	animation_composition.append("left")
+	# if vel.x > 0:
+	# 	animation_composition.append("right")
+	# $AnimationPlayer.play("_".join(animation_composition))
 
 	var new_stamina = stamina
 	if vel.length() > 0:

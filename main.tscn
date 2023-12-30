@@ -1899,7 +1899,6 @@ layer_1/name = "foreground"
 layer_1/tile_data = PackedInt32Array()
 
 [node name="Camera2D" type="Camera2D" parent="."]
-anchor_mode = 0
 metadata/_edit_group_ = true
 
 [node name="UI" parent="." instance=ExtResource("7_4vlye")]

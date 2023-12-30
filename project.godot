@@ -22,8 +22,9 @@ State="*res://state.gd"
 
 [display]
 
-window/size/viewport_width=1914
-window/size/viewport_height=1030
+window/size/viewport_width=1000
+window/size/viewport_height=800
+window/stretch/mode="viewport"
 
 [editor_plugins]
 

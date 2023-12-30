@@ -33,7 +33,9 @@ var current_special_level: SpecialLevelBase
 
 
 func ready_up_camera():
-	$Camera2D.set_position(Vector2(0, 0))
+	# NOTE: This is done like that because if I do Anchor Mode Top-Left, I will get spaces to the right
+	var center = Vector2(tilemap_scale.x * tilemap_size.x / 2, tilemap_scale.y * tilemap_size.y / 2)
+	$Camera2D.set_position(center)
 	var larger_scale = min(
 		screen_size.x / float(tilemap_scale.x * tilemap_size.x),
 		screen_size.y / float(tilemap_scale.y * tilemap_size.y)
@@ -88,7 +90,7 @@ func select_level():
 
 	var global_pos = Vector2(
 		(start_pos.x + 0.5) * tilemap_scale.x, (start_pos.y + 0.5) * tilemap_scale.y
-		)
+	)
 	var level_gen = LevelGenerator.new(start_pos, bounding_box, generation_steps)
 	var path = level_gen.generate_level()
 
