@@ -1,6 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://b4d41mh235v"]
+[gd_scene load_steps=6 format=3 uid="uid://b4d41mh235v"]
 
 [ext_resource type="Script" path="res://hud.gd" id="1_syl3g"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_00dh3"]
+bg_color = Color(0.223529, 0.235294, 0.239216, 0.870588)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n8a0i"]
+bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y4mqp"]
+bg_color = Color(0.223529, 0.235294, 0.239216, 0.870588)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cavqe"]
+bg_color = Color(0, 0, 1, 1)
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_syl3g")
@@ -30,3 +42,21 @@ offset_bottom = 267.0
 size_flags_horizontal = 0
 theme_override_font_sizes/normal_font_size = 64
 text = "Stamina: 100"
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = 439.0
+offset_top = 103.0
+offset_right = 1139.0
+offset_bottom = 168.0
+theme_override_styles/background = SubResource("StyleBoxFlat_00dh3")
+theme_override_styles/fill = SubResource("StyleBoxFlat_n8a0i")
+value = 15.0
+
+[node name="StaminaBar" type="ProgressBar" parent="."]
+offset_left = 439.0
+offset_top = 187.0
+offset_right = 1139.0
+offset_bottom = 252.0
+theme_override_styles/background = SubResource("StyleBoxFlat_y4mqp")
+theme_override_styles/fill = SubResource("StyleBoxFlat_cavqe")
+value = 30.0
