@@ -17,7 +17,7 @@ tutel: ok good. i hope i installed the hydraulics right. try sprinting with shif
 tutel: see that thing to the right?
 neuro: ...
 set State.tut_item_displayed = true
-tutel: now it's gone. go over where it was and press Z
+tutel: now it's gone. go over where it was and hold Z
 
 => END!
 

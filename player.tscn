@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://7l2v6e7pekj6"]
+[gd_scene load_steps=7 format=3 uid="uid://7l2v6e7pekj6"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_f3dqi"]
 [ext_resource type="Texture2D" uid="uid://e0vyh1jffxql" path="res://assets/blueball.png" id="1_o0rm0"]
@@ -17,6 +17,12 @@ animations = [{
 "name": &"idle",
 "speed": 5.0
 }]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dlp0m"]
+radius = 77.3175
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yj20c"]
+bg_color = Color(0.666667, 0.611765, 0, 1)
 
 [node name="Player" type="CharacterBody2D"]
 motion_mode = 1
@@ -41,5 +47,31 @@ animation = &"idle"
 [node name="InvincibilityTimer" type="Timer" parent="."]
 wait_time = 0.05
 
+[node name="DiggingTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="DiggableDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DiggableDetector"]
+shape = SubResource("CircleShape2D_dlp0m")
+debug_color = Color(0.878431, 0.298039, 0.443137, 0.419608)
+
+[node name="DiggingProgressBar" type="ProgressBar" parent="."]
+visible = false
+offset_left = -84.0
+offset_top = -59.0
+offset_right = 89.0
+offset_bottom = -32.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_yj20c")
+value = 30.0
+
+[node name="DiggingProgressTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.1
+
 [connection signal="timeout" from="KnockbackTimer" to="." method="_on_knockback_timer_timeout"]
 [connection signal="timeout" from="InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]
+[connection signal="timeout" from="DiggingTimer" to="." method="_on_digging_timer_timeout"]
+[connection signal="area_shape_entered" from="DiggableDetector" to="." method="_on_diggable_detector_area_shape_entered"]
+[connection signal="area_shape_exited" from="DiggableDetector" to="." method="_on_diggable_detector_area_shape_exited"]
+[connection signal="timeout" from="DiggingProgressTimer" to="." method="_on_digging_progress_timer_timeout"]

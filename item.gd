@@ -5,10 +5,14 @@ signal collected
 
 enum ItemWorth { NONE, LOW, MEDIUM, HIGH, RARE }
 
-var worth_to_score = {ItemWorth.NONE: 0, ItemWorth.LOW: 1, ItemWorth.MEDIUM: 2, ItemWorth.HIGH: 5, ItemWorth.RARE: 10}
+var worth_to_score = {
+	ItemWorth.NONE: 0, ItemWorth.LOW: 1, ItemWorth.MEDIUM: 2, ItemWorth.HIGH: 5, ItemWorth.RARE: 10
+}
 
 @export var override_worth: ItemWorth = ItemWorth.NONE
 var worth = ItemWorth.LOW
+
+var in_contact = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -39,14 +43,11 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	pass
 
 
-func _on_body_entered(body: Node2D) -> void:
-	if body.name != "Player":
-		return
-
+func collect():
 	hide()
 	collected.emit(self)
 	queue_free()
