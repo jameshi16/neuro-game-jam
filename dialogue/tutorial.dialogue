@@ -1,7 +1,7 @@
 ~ tutorial_1
 
 tutel: ah, i thought my code broke. you're finally awake
-neuro: ?
+???: ?
 tutel: let's see if all your other systems are online. move around with wasd
 
 => END!
@@ -15,7 +15,7 @@ tutel: ok good. i hope i installed the hydraulics right. try sprinting with shif
 ~ tutorial_3
 
 tutel: see that thing to the right?
-neuro: ...
+???: ...
 set State.tut_item_displayed = true
 tutel: now it's gone. go over where it was and hold Z
 
@@ -23,24 +23,24 @@ tutel: now it's gone. go over where it was and hold Z
 
 ~ tutorial_4
 
-tutel: great job neuro. you can also swing your shovel if you left click
+tutel: that's one hearty swing. great job neuro. you can also swing your shovel if you left click
 
 => END!
 
-~ tutorial_later
+~ tutorial_5
 
 tutel: i'm sure the items flashing with colors and actually mean something, but i can't remember
 tutel: here, i've placed more stuff on the floor. try figuring it out by picking them up
 
 => END!
 
-~ tutorial_5
+~ tutorial_6
 
 tutel: (should i tell her about enemies?)
-neuro: ?
+???: ?
 tutel: (maybe not)
-tutel: good job neuro. i know it sounds crazy, but i need you to do this for a while. can you do that for me?
-neuro: ?
+tutel: good job. i know it sounds crazy, but i need you to do this for a while. can you do that for me?
+???: ?
 tutel: haha...
 tutel: sometimes i really miss your voice
 tutel: i got to go, good luck. i hope i can see you soon

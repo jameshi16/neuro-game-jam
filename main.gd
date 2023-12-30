@@ -66,6 +66,7 @@ func load_fixed_level(scene: PackedScene):
 	current_special_level = scene.instantiate()
 	current_special_level.initialize_from_main($Player)
 	current_special_level.item_picked.connect(update_score)
+	current_special_level.level_completed.connect(reset)
 	assert(current_special_level is SpecialLevelBase)
 	add_child(current_special_level)
 	$Player.reset(current_special_level.get_node("PlayerSpawnpoint").global_position)
@@ -188,6 +189,10 @@ func reset():
 	free_enemies()
 	score = 0
 	$UI.update_health(100)
+
+	if current_special_level:
+		current_special_level.queue_free()
+		current_special_level = null
 
 	select_level()
 

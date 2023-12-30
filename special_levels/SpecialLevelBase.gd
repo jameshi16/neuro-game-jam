@@ -2,6 +2,7 @@ extends TileMap
 class_name SpecialLevelBase
 
 signal item_picked
+signal level_completed
 
 var player
 
