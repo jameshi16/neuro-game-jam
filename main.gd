@@ -15,13 +15,13 @@ class_name Main
 @export var navigation_layer = 0
 @export var num_enemies = 5
 @export var num_items = 10
-@export var default_world_pan_time = 5.0
 
 # Metadata
 var tilemap_size
 var tilemap_scale
 var screen_size
 var restart_cooling_down = true
+var level_began = false
 
 # Game variables
 var score = 0
@@ -44,23 +44,27 @@ func ready_up_camera():
 	#$Camera2D.set_limit(
 	#	Rect2(0, 0, $TileMap.get_used_rect().size.x, $TileMap.get_used_rect().size.y))
 	$Camera2D.make_current()
+	$Camera2D.get_node("MapOverviewUI").show()
 
 
 func level_begin():
 	# This function should be called as part of the callback to the timer.
 	# Signifies the beginning of the contallable game
+	level_began = true
 	$Player.keys_disabled = false
 	$Player.reset_camera_view()
+	$Camera2D.get_node("MapOverviewUI").hide()
 	if current_special_level:
 		current_special_level.level_began()
 	for item in items_to_collect:
 		item.hide()
 
+	for enemy in enemies_in_scene:
+		enemy.physics_enabled = true
+
 
 func pan_entire_world():
 	$Player.keys_disabled = true
-
-	$WorldPanTimer.start()
 	ready_up_camera()
 
 
@@ -106,7 +110,6 @@ func select_level():
 	mob_locations.shuffle()
 	spawn_mobs(mob_locations.slice(0, num_enemies))
 
-	$WorldPanTimer.wait_time = default_world_pan_time
 	$Player.reset(global_pos)
 
 
@@ -136,6 +139,9 @@ func _process(delta):
 	# special levels cannot be restarted
 	if !restart_cooling_down and Input.is_action_pressed("restart_level") and current_special_level:
 		reset()
+
+	if !level_began and Input.is_action_pressed("accept"):
+		level_begin()
 
 
 func update_score(item: Item):
@@ -187,6 +193,7 @@ func free_enemies():
 
 
 func reset():
+	level_began = false
 	free_items()
 	free_enemies()
 	score = 0

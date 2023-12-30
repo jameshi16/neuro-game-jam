@@ -22,5 +22,5 @@ func _init(player_ : Player, shovel_timer_: Timer):
 func attack(_direction: Vector2):
 	pass
 
-func apply_shovel_effects_on_enemy(enemy: Enemy):
+func apply_shovel_effects_on_enemy(_enemy: Enemy):
 	pass

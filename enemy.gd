@@ -7,6 +7,7 @@ class_name Enemy
 var target: Node
 var acceleration: Vector2 = Vector2.ZERO
 var invincible = false
+var physics_enabled = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -16,6 +17,9 @@ func _ready():
 
 
 func _physics_process(delta):
+	if !physics_enabled:
+		return
+
 	if target:
 		var direction = $NavigationAgent2D.get_next_path_position()
 		var collision = move_and_collide((direction - position).normalized() * speed * delta)
