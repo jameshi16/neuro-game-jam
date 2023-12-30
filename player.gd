@@ -2,17 +2,22 @@ extends CharacterBody2D
 class_name Player
 signal hit
 signal player_died
+signal stamina_changed
 
 # add a variable that adjusts speed
 
 @export var default_speed = 400
-@export var sprint_mod = 2
 @export var default_health = 100
+@export var default_stamina = 100
+@export var sprint_mod = 2
 @export var knockback_speed = 2000
+@export var stamina_consumption_rate = 2
+@export var stamina_recovery_rate = 1
 var screen_size
 var keys_disabled = true
 var speed = default_speed
 var health = default_health
+var stamina = default_stamina
 var acceleration = Vector2(0, 0)
 var invincible = false
 
@@ -28,13 +33,22 @@ func process_keys(delta):
 	if Input.is_action_pressed("move_down"):
 		vel.y += 1
 
+	var new_stamina = stamina
 	if vel.length() > 0:
 		vel = vel.normalized() * speed
-		if Input.is_action_pressed("sprint"):
+		if new_stamina > 0 and Input.is_action_pressed("sprint"):
 			vel *= sprint_mod
 			$AnimatedSprite2D.play("idle")
+			new_stamina -= stamina_consumption_rate
 	else:
 		$AnimatedSprite2D.stop()
+
+	if !Input.is_action_pressed("sprint"):
+		new_stamina += stamina_recovery_rate
+
+	if stamina != new_stamina:
+		stamina = clamp(new_stamina, 0, default_stamina)
+		stamina_changed.emit()
 
 	velocity = vel
 	move_and_slide()
@@ -68,6 +82,7 @@ func reset(pos):
 	show()
 	speed = default_speed
 	health = default_health
+	stamina = default_stamina
 	$CollisionShape2D.disabled = false
 	invincible = false
 

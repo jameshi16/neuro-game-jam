@@ -11,9 +11,14 @@ func _process(delta):
 	pass
 
 
+# TODO: Actually, I can probably use setters for these. Leaving a TODO here surely means I will address it clueless
+
 func update_score(score: int):
 	$Score.text = "Score: %d" % score
 
 
 func update_health(health: int):
 	$Health.text = "Health: %d" % health
+
+func update_stamina(stamina: int):
+	$Stamina.text = "Stamina: %d" % stamina

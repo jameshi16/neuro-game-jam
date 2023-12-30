@@ -181,3 +181,7 @@ func _on_restart_cooldown_timer_timeout() -> void:
 
 func _on_world_pan_timer_timeout() -> void:
 	level_begin()
+
+
+func _on_player_stamina_changed() -> void:
+	$UI.update_stamina($Player.stamina)

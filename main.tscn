@@ -1913,5 +1913,6 @@ one_shot = true
 
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
 [connection signal="player_died" from="Player" to="." method="_on_player_player_died"]
+[connection signal="stamina_changed" from="Player" to="." method="_on_player_stamina_changed"]
 [connection signal="timeout" from="RestartCooldownTimer" to="." method="_on_restart_cooldown_timer_timeout"]
 [connection signal="timeout" from="WorldPanTimer" to="." method="_on_world_pan_timer_timeout"]
