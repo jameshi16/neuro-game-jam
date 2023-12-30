@@ -1,6 +1,8 @@
 extends CharacterBody2D
 class_name Enemy
 
+signal dead(score: float)
+
 @export var speed = 100
 @export var health = 100
 
@@ -54,13 +56,16 @@ func knockback(reference_pos: Vector2, knockback_speed: float):
 	$InvincibilityTimer.start()
 	invincible = true
 
+
 func receive_damage(damage: int) -> void:
 	if invincible:
 		return
 
 	health -= damage
 	if health <= 0:
-		queue_free()
+		dead.emit(speed * health * 0.001)
+		physics_enabled = false
+		hide()
 	$HealthBar.value = health
 
 func _on_knockback_timer_timeout() -> void:

@@ -1886,10 +1886,24 @@ generation_steps = 1000
 turn_early_probability = 0.11
 map_size_x = 60
 map_size_y = 40
+num_items = 1
 
 [node name="Player" parent="." instance=ExtResource("4_85l7j")]
 z_index = 1
 knockback_speed = 1000
+
+[node name="Camera2D" type="Camera2D" parent="."]
+z_index = 1
+metadata/_edit_group_ = true
+
+[node name="MapOverviewUI" parent="Camera2D" instance=ExtResource("9_vueip")]
+visible = false
+anchors_preset = 12
+anchor_top = 1.0
+grow_vertical = 0
+scale = Vector2(3, 3)
+size_flags_horizontal = 4
+size_flags_vertical = 10
 
 [node name="TileMap" type="TileMap" parent="."]
 scale = Vector2(5, 5.988)
@@ -1899,25 +1913,17 @@ layer_0/name = "background"
 layer_1/name = "foreground"
 layer_1/tile_data = PackedInt32Array()
 
-[node name="Camera2D" type="Camera2D" parent="."]
-metadata/_edit_group_ = true
-
-[node name="MapOverviewUI" parent="Camera2D" instance=ExtResource("9_vueip")]
-visible = false
-z_index = 1
-anchors_preset = 12
-anchor_top = 1.0
-grow_vertical = 0
-scale = Vector2(3, 3)
-size_flags_horizontal = 4
-size_flags_vertical = 10
-
 [node name="UI" parent="." instance=ExtResource("7_4vlye")]
 
 [node name="RestartCooldownTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="MapTimer" type="Timer" parent="."]
+wait_time = 30.0
 one_shot = true
 
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
 [connection signal="player_died" from="Player" to="." method="_on_player_player_died"]
 [connection signal="stamina_changed" from="Player" to="." method="_on_player_stamina_changed"]
 [connection signal="timeout" from="RestartCooldownTimer" to="." method="_on_restart_cooldown_timer_timeout"]
+[connection signal="timeout" from="MapTimer" to="." method="_on_map_timer_timeout"]

@@ -44,6 +44,7 @@ func ready_up_camera():
 	#$Camera2D.set_limit(
 	#	Rect2(0, 0, $TileMap.get_used_rect().size.x, $TileMap.get_used_rect().size.y))
 	$Camera2D.make_current()
+	$UI.hide()
 	$Camera2D.get_node("MapOverviewUI").show()
 
 
@@ -53,14 +54,18 @@ func level_begin():
 	level_began = true
 	$Player.keys_disabled = false
 	$Player.reset_camera_view()
+	$UI.show()
 	$Camera2D.get_node("MapOverviewUI").hide()
 	if current_special_level:
 		current_special_level.level_began()
+
 	for item in items_to_collect:
 		item.hide()
 
 	for enemy in enemies_in_scene:
 		enemy.physics_enabled = true
+
+	$MapTimer.start()
 
 
 func pan_entire_world():
@@ -143,6 +148,10 @@ func _process(delta):
 	if !level_began and Input.is_action_pressed("accept"):
 		level_begin()
 
+	$UI.update_time($MapTimer.time_left)
+
+	check_cleared()
+
 
 func update_score(item: Item):
 	score += item.worth_to_score[item.worth]
@@ -166,6 +175,7 @@ func spawn_mobs(locations: Array):
 		add_child(enemy)
 		enemy.target = $Player
 		enemy.set_navigation_map(navmap)
+		enemy.dead.connect(_on_enemy_die)
 		enemies_in_scene.append(enemy)
 
 
@@ -191,6 +201,16 @@ func free_enemies():
 		enemy.queue_free()
 	enemies_in_scene = []
 
+func game_over(lost: bool):
+	if lost:
+		print("player died")
+
+	reset()
+
+func check_cleared():
+	if items_to_collect.size() == 0:
+		game_over(false)
+
 
 func reset():
 	level_began = false
@@ -207,6 +227,7 @@ func reset():
 
 	pan_entire_world()
 	restart_cooling_down = true
+	$MapTimer.stop()
 	$RestartCooldownTimer.start()
 
 
@@ -215,16 +236,19 @@ func _on_player_hit():
 
 
 func _on_player_player_died():
-	reset()
+	game_over(true)
 
 
 func _on_restart_cooldown_timer_timeout() -> void:
 	restart_cooling_down = false
 
 
-func _on_world_pan_timer_timeout() -> void:
-	level_begin()
-
-
 func _on_player_stamina_changed() -> void:
 	$UI.update_stamina($Player.stamina)
+
+func _on_enemy_die(defeat_score: float) -> void:
+	score += defeat_score
+	$UI.update_score(score)
+
+func _on_map_timer_timeout() -> void:
+	game_over(false)

@@ -26,3 +26,6 @@ func update_health(health: int):
 func update_stamina(stamina: int):
 	$Stamina.text = "Stamina: %d" % stamina
 	$StaminaBar.value = stamina
+
+func update_time(time: int):
+	$Time.text = "Time Left: %d" % time
