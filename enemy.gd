@@ -6,9 +6,11 @@ class_name Enemy
 
 var target: Node
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
+
 
 func _physics_process(delta):
 	if target:
@@ -17,6 +19,7 @@ func _physics_process(delta):
 		if collision and collision.get_collider() is Player:
 			var player: Player = collision.get_collider()
 			player.enemy_damages_player(self)
+
 
 func set_navigation_map(navigation_map: RID):
 	# Godot literally doesn't say it defaults to the background layer by default, I am very madge

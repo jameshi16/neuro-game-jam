@@ -49,13 +49,16 @@ func _ready():
 func _process(delta):
 	check_game_over()
 
+
 func _physics_process(delta):
 	if !keys_disabled:
 		process_keys(delta)
 	move_and_collide(acceleration * delta)
 
+
 func reset_camera_view():
 	$Camera2D.make_current()
+
 
 func reset(pos):
 	stop_every_timer()
@@ -68,15 +71,18 @@ func reset(pos):
 	$CollisionShape2D.disabled = false
 	invincible = false
 
+
 func check_game_over():
 	if health <= 0:
 		keys_disabled = true
 		stop_every_timer()
 		player_died.emit()
 
+
 func stop_every_timer():
 	$KnockbackTimer.stop()
 	$InvincibilityTimer.stop()
+
 
 func enemy_damages_player(enemy: Enemy):
 	if invincible:
@@ -85,6 +91,7 @@ func enemy_damages_player(enemy: Enemy):
 	hit.emit()
 	knockback(enemy.position)
 
+
 func knockback(enemy_pos: Vector2):
 	# inverse enemy position and then normalize
 	var vel = (position - enemy_pos).normalized() * knockback_speed
@@ -92,6 +99,7 @@ func knockback(enemy_pos: Vector2):
 	acceleration = vel
 	$KnockbackTimer.start()
 	trigger_invincibility()
+
 
 func trigger_invincibility():
 	$InvincibilityTimer.start()

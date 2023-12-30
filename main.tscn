@@ -1904,5 +1904,14 @@ metadata/_edit_group_ = true
 
 [node name="UI" parent="." instance=ExtResource("7_4vlye")]
 
+[node name="RestartCooldownTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="WorldPanTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
 [connection signal="player_died" from="Player" to="." method="_on_player_player_died"]
+[connection signal="timeout" from="RestartCooldownTimer" to="." method="_on_restart_cooldown_timer_timeout"]
+[connection signal="timeout" from="WorldPanTimer" to="." method="_on_world_pan_timer_timeout"]

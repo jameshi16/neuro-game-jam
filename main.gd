@@ -19,6 +19,7 @@ extends Node
 var tilemap_size
 var tilemap_scale
 var screen_size
+var restart_cooling_down = true
 
 # Game variables
 var score = 0
@@ -50,16 +51,11 @@ func level_begin():
 
 
 func pan_entire_world():
-	# sets up a one shot timer, allow the user to interact with the camera to look around for 5 seconds
 	$Player.keys_disabled = true
-	var timer = Timer.new()
-	add_child(timer)
 
-	timer.wait_time = 5.0
-	timer.one_shot = true
-	timer.start()
+	$WorldPanTimer.start()
 	ready_up_camera()
-	timer.timeout.connect(level_begin)
+	$WorldPanTimer.timeout.connect(level_begin)
 
 
 # Called when the node enters the scene tree for the first time.
@@ -84,7 +80,8 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	if !restart_cooling_down and Input.is_action_pressed("restart_level"):
+		reset()
 
 
 func update_score(item: Item):
@@ -134,17 +131,15 @@ func free_enemies():
 		enemy.queue_free()
 	enemies_in_scene = []
 
+
 func reset():
 	# generate a world here (TODO: tilemap_size is a temporary size)
 	var bounding_box = Rect2(Vector2(0, 0), tilemap_size)
-	var start_pos = Vector2(
-		(randi() % roundi(tilemap_size.x)),
-		(randi() % roundi(tilemap_size.y))
-	)
+	var start_pos = Vector2(randi() % roundi(tilemap_size.x), randi() % roundi(tilemap_size.y))
 
 	var global_pos = Vector2(
 		(start_pos.x + 0.5) * tilemap_scale.x, (start_pos.y + 0.5) * tilemap_scale.y
-		)
+	)
 
 	free_items()
 	free_enemies()
@@ -168,6 +163,8 @@ func reset():
 	spawn_mobs(mob_locations.slice(0, num_enemies))
 
 	pan_entire_world()
+	restart_cooling_down = true
+	$RestartCooldownTimer.start()
 
 
 func _on_player_hit():
@@ -176,3 +173,11 @@ func _on_player_hit():
 
 func _on_player_player_died():
 	reset()
+
+
+func _on_restart_cooldown_timer_timeout() -> void:
+	restart_cooling_down = false
+
+
+func _on_world_pan_timer_timeout() -> void:
+	level_begin()

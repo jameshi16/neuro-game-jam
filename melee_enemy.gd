@@ -15,8 +15,8 @@ func _process(delta):
 func _physics_process(delta):
 	super._physics_process(delta)
 
-func _on_body_entered(body:Node) -> void:
+
+func _on_body_entered(body: Node) -> void:
 	if body is Player:
 		body.hit.emit()
 		body.knockback(position)
-	pass # Replace with function body.
