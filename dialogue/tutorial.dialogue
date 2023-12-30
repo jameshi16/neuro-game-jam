@@ -2,13 +2,13 @@
 
 tutel: ah, i thought my code broke. you're finally awake
 ???: ?
-tutel: let's see if all your other systems are online. move around with wasd
+tutel: let's see if all your other systems are online. move around with [W], [A], [S], and [D]
 
 => END!
 
 ~ tutorial_2
 
-tutel: ok good. i hope i installed the hydraulics right. try sprinting with shift
+tutel: ok good. i hope i installed the hydraulics right. try sprinting with [Shift]
 
 => END!
 
@@ -17,13 +17,13 @@ tutel: ok good. i hope i installed the hydraulics right. try sprinting with shif
 tutel: see that thing to the right?
 ???: ...
 set State.tut_item_displayed = true
-tutel: now it's gone. go over where it was and hold Z
+tutel: now it's gone. go over where it was and hold [Z]
 
 => END!
 
 ~ tutorial_4
 
-tutel: that's one hearty swing. great job neuro. you can also swing your shovel if you left click
+tutel: great job neuro. you can also swing your shovel if you [Left Click]
 
 => END!
 
