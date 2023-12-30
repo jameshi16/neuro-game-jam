@@ -3,16 +3,20 @@ class_name Item
 
 signal collected
 
-enum ItemWorth { LOW, MEDIUM, HIGH, RARE }
+enum ItemWorth { NONE, LOW, MEDIUM, HIGH, RARE }
 
-var worth_to_score = {ItemWorth.LOW: 1, ItemWorth.MEDIUM: 2, ItemWorth.HIGH: 5, ItemWorth.RARE: 10}
+var worth_to_score = {ItemWorth.NONE: 0, ItemWorth.LOW: 1, ItemWorth.MEDIUM: 2, ItemWorth.HIGH: 5, ItemWorth.RARE: 10}
 
+@export var override_worth: ItemWorth = ItemWorth.NONE
 var worth = ItemWorth.LOW
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	# randomly choose an item worth (weighted)
+	if override_worth and override_worth != ItemWorth.NONE:
+		worth = override_worth
+
+	# randomly choose an item worth if not overwritten (weighted)
 	var rand = randf()
 	if rand < 0.5:
 		worth = ItemWorth.LOW

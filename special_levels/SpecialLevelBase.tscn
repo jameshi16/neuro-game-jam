@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://dh3tlmtkluu1i"]
+
+[ext_resource type="TileSet" uid="uid://bkhbof0boh4nu" path="res://special_levels/common_tileset.tres" id="1_2arsn"]
+[ext_resource type="Script" path="res://special_levels/SpecialLevelBase.gd" id="2_un1fw"]
+
+[node name="SpecialLevelBase" type="TileMap"]
+scale = Vector2(5, 5)
+tile_set = ExtResource("1_2arsn")
+format = 2
+script = ExtResource("2_un1fw")
+
+[node name="PlayerSpawnpoint" type="Marker2D" parent="."]

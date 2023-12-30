@@ -1,4 +1,5 @@
 extends Node
+class_name Main
 
 @export var item_scene: PackedScene
 @export var enemies: Array[PackedScene]
@@ -14,6 +15,7 @@ extends Node
 @export var navigation_layer = 0
 @export var num_enemies = 5
 @export var num_items = 10
+@export var default_world_pan_time = 5.0
 
 # Metadata
 var tilemap_size
@@ -25,6 +27,7 @@ var restart_cooling_down = true
 var score = 0
 var items_to_collect: Array[Item] = []
 var enemies_in_scene: Array[Enemy] = []
+var current_special_level: SpecialLevelBase
 
 # TODO: maybe need state manager? but it's a jam, so I'll just leave a note
 
@@ -46,6 +49,8 @@ func level_begin():
 	# Signifies the beginning of the contallable game
 	$Player.keys_disabled = false
 	$Player.reset_camera_view()
+	if current_special_level:
+		current_special_level.level_began()
 	for item in items_to_collect:
 		item.hide()
 
@@ -55,7 +60,51 @@ func pan_entire_world():
 
 	$WorldPanTimer.start()
 	ready_up_camera()
-	$WorldPanTimer.timeout.connect(level_begin)
+
+
+func load_fixed_level(scene: PackedScene):
+	current_special_level = scene.instantiate()
+	current_special_level.initialize_from_main($Player)
+	current_special_level.item_picked.connect(update_score)
+	assert(current_special_level is SpecialLevelBase)
+	add_child(current_special_level)
+	$Player.reset(current_special_level.get_node("PlayerSpawnpoint").global_position)
+	# TODO: when level is cleared, this node should be removed
+
+
+func select_level():
+	# TODO: another useful case for state managers.
+	# clueless
+
+	if !State.cleared_tutorial:
+		load_fixed_level(preload("res://special_levels/tutorial.tscn"))
+		return
+
+	# generate a world here (TODO: tilemap_size is a temporary size)
+	current_special_level = null
+	var bounding_box = Rect2(Vector2(0, 0), tilemap_size)
+	var start_pos = Vector2(randi() % roundi(tilemap_size.x), randi() % roundi(tilemap_size.y))
+
+	var global_pos = Vector2(
+		(start_pos.x + 0.5) * tilemap_scale.x, (start_pos.y + 0.5) * tilemap_scale.y
+		)
+	var level_gen = LevelGenerator.new(start_pos, bounding_box, generation_steps)
+	var path = level_gen.generate_level()
+
+	# fill with the collision tiles first
+	fill_with_with_collision_tiles()
+	$TileMap.set_cells_terrain_connect(navigation_layer, path, terrain_set, terrain, false)
+
+	var item_locations = path.duplicate()
+	item_locations.shuffle()
+	spawn_items(item_locations.slice(0, num_items))
+
+	var mob_locations = path.duplicate()
+	mob_locations.shuffle()
+	spawn_mobs(mob_locations.slice(0, num_enemies))
+
+	$WorldPanTimer.wait_time = default_world_pan_time
+	$Player.reset(global_pos)
 
 
 # Called when the node enters the scene tree for the first time.
@@ -75,12 +124,14 @@ func _ready():
 	tilemap_scale = $TileMap.tile_set.tile_size
 	tilemap_scale.x *= $TileMap.scale.x
 	tilemap_scale.y *= $TileMap.scale.y
+
 	reset()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if !restart_cooling_down and Input.is_action_pressed("restart_level"):
+	# special levels cannot be restarted
+	if !restart_cooling_down and Input.is_action_pressed("restart_level") and current_special_level:
 		reset()
 
 
@@ -133,34 +184,12 @@ func free_enemies():
 
 
 func reset():
-	# generate a world here (TODO: tilemap_size is a temporary size)
-	var bounding_box = Rect2(Vector2(0, 0), tilemap_size)
-	var start_pos = Vector2(randi() % roundi(tilemap_size.x), randi() % roundi(tilemap_size.y))
-
-	var global_pos = Vector2(
-		(start_pos.x + 0.5) * tilemap_scale.x, (start_pos.y + 0.5) * tilemap_scale.y
-	)
-
 	free_items()
 	free_enemies()
-	$Player.reset(global_pos)
 	score = 0
 	$UI.update_health(100)
 
-	var level_gen = LevelGenerator.new(start_pos, bounding_box, generation_steps)
-	var path = level_gen.generate_level()
-
-	# fill with the collision tiles first
-	fill_with_with_collision_tiles()
-	$TileMap.set_cells_terrain_connect(navigation_layer, path, terrain_set, terrain, false)
-
-	var item_locations = path.duplicate()
-	item_locations.shuffle()
-	spawn_items(item_locations.slice(0, num_items))
-
-	var mob_locations = path.duplicate()
-	mob_locations.shuffle()
-	spawn_mobs(mob_locations.slice(0, num_enemies))
+	select_level()
 
 	pan_entire_world()
 	restart_cooling_down = true
