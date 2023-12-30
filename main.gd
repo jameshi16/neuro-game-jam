@@ -34,7 +34,11 @@ var current_special_level: SpecialLevelBase
 
 func ready_up_camera():
 	# NOTE: This is done like that because if I do Anchor Mode Top-Left, I will get spaces to the right
-	var center = Vector2(tilemap_scale.x * tilemap_size.x / 2, tilemap_scale.y * tilemap_size.y / 2)
+	var full_size = Vector2(tilemap_scale.x * tilemap_size.x, tilemap_scale.y * tilemap_size.y)
+	if current_special_level: # special case for special levels because they're special
+		var world_size = current_special_level.get_used_rect().size
+		full_size = Vector2(world_size.x * tilemap_scale.x, world_size.y * tilemap_scale.y)
+	var center = Vector2(full_size.x / 2, full_size.y / 2)
 	$Camera2D.set_position(center)
 	var larger_scale = min(
 		screen_size.x / float(tilemap_scale.x * tilemap_size.x),
@@ -58,6 +62,7 @@ func level_begin():
 	$Camera2D.get_node("MapOverviewUI").hide()
 	if current_special_level:
 		current_special_level.level_began()
+		return
 
 	for item in items_to_collect:
 		item.hide()
@@ -81,6 +86,7 @@ func load_fixed_level(scene: PackedScene):
 	assert(current_special_level is SpecialLevelBase)
 	add_child(current_special_level)
 	$Player.reset(current_special_level.get_node("PlayerSpawnpoint").global_position)
+	#$UI.get_node("Time").hide()
 	# TODO: when level is cleared, this node should be removed
 
 
@@ -88,11 +94,14 @@ func select_level():
 	# TODO: another useful case for state managers.
 	# clueless
 
+	# "Time left" will not be on the HUD if it is a special level
+
 	if !State.cleared_tutorial:
 		load_fixed_level(preload("res://special_levels/tutorial.tscn"))
 		return
 
 	# generate a world here (TODO: tilemap_size is a temporary size)
+	$UI.get_node("Time").show()
 	current_special_level = null
 	var bounding_box = Rect2(Vector2(0, 0), tilemap_size)
 	var start_pos = Vector2(randi() % roundi(tilemap_size.x), randi() % roundi(tilemap_size.y))
@@ -142,15 +151,16 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	# special levels cannot be restarted
-	if !restart_cooling_down and Input.is_action_pressed("restart_level") and current_special_level:
+	if !restart_cooling_down and Input.is_action_pressed("restart_level") and !current_special_level:
 		reset()
 
-	if !level_began and Input.is_action_pressed("accept"):
+	if !level_began and Input.is_action_just_pressed("start_level"):
 		level_begin()
 
-	$UI.update_time($MapTimer.time_left)
-
-	check_cleared()
+	# main only checks for random levels
+	if !current_special_level:
+		check_cleared()
+		$UI.update_time($MapTimer.time_left)
 
 
 func update_score(item: Item):
@@ -203,6 +213,7 @@ func free_enemies():
 
 func game_over(lost: bool):
 	if lost:
+		score = 0
 		print("player died")
 
 	reset()
@@ -216,7 +227,6 @@ func reset():
 	level_began = false
 	free_items()
 	free_enemies()
-	score = 0
 	$UI.update_health(100)
 
 	if current_special_level:

@@ -21,4 +21,4 @@ offset_right = 389.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/normal_font_size = 72
-text = "Press [Z] to continue"
+text = "Press [X] to continue"

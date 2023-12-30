@@ -21,14 +21,15 @@ script = ExtResource("1_syl3g")
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -283.0
+offset_left = -360.0
 offset_top = 212.0
-offset_right = -38.0
+offset_right = -29.0
 offset_bottom = 300.0
 grow_horizontal = 0
 size_flags_horizontal = 10
 theme_override_font_sizes/normal_font_size = 64
 text = "Score: 0"
+fit_content = true
 
 [node name="Health" type="RichTextLabel" parent="."]
 offset_left = 324.0
