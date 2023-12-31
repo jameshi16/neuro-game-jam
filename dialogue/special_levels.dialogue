@@ -17,6 +17,7 @@ evil: haha... how ironic.
 evil: it's going to get more dangerous from here.
 ???: ...
 evil: stay safe... i guess?
+set State.visited_evil = true
 
 => END!
 

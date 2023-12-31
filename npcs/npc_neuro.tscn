@@ -33,10 +33,12 @@ animations = [{
 radius = 9.0
 
 [node name="NPCNeuro" type="CharacterBody2D"]
+scale = Vector2(0.5, 0.5)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_o3kxi")
-frame_progress = 0.981163
+autoplay = "default"
+frame_progress = 0.650608
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_xwesg")

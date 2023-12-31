@@ -83,7 +83,7 @@ func pan_entire_world():
 
 func load_fixed_level(scene: PackedScene):
 	current_special_level = scene.instantiate()
-	current_special_level.initialize_from_main($Player)
+	current_special_level.initialize_from_main($Player, $UI)
 	current_special_level.item_picked.connect(update_score)
 	current_special_level.level_completed.connect(reset)
 	assert(current_special_level is SpecialLevelBase)
@@ -99,11 +99,12 @@ func select_level():
 
 	# "Time left" will not be on the HUD if it is a special level
 
-	load_fixed_level(preload("res://special_levels/cut_scene.tscn"))
-	return
-
 	if !State.cleared_tutorial:
 		load_fixed_level(preload("res://special_levels/tutorial.tscn"))
+		return
+
+	if !State.visited_evil:
+		load_fixed_level(preload("res://special_levels/evil_level.tscn"))
 		return
 
 	# generate a world here (TODO: tilemap_size is a temporary size)

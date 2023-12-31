@@ -4,7 +4,11 @@ extends Node
 
 # Switches shared across saves
 static var score = 0
+static var fragments = 0
 
 # Tutorial related
 static var cleared_tutorial = true
 static var tut_item_displayed = false
+
+# Evil
+static var visited_evil = false
