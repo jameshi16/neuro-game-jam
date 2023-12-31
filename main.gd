@@ -107,15 +107,15 @@ func select_level():
 		load_fixed_level(preload("res://special_levels/tutorial.tscn"))
 		return
 
-	if !State.visited_evil and State.fragments == 1:
+	if !State.visited_evil and State.fragments >= 1:
 		load_fixed_level(preload("res://special_levels/evil_level.tscn"))
 		return
 
-	if !State.visited_neuro and State.fragments == 3:
+	if !State.visited_neuro and State.fragments >= 3:
 		load_fixed_level(preload("res://special_levels/neuro_level.tscn"))
 		return
 
-	if !State.visited_end and State.fragments == 6:
+	if !State.visited_end and State.fragments >= 6:
 		load_fixed_level(preload("res://special_levels/hiyori_level.tscn"))
 		return
 
