@@ -1,16 +1,40 @@
-[gd_scene load_steps=5 format=3 uid="uid://bqghgbvpu0p5x"]
+[gd_scene load_steps=10 format=3 uid="uid://bqghgbvpu0p5x"]
 
-[ext_resource type="Texture2D" uid="uid://cqw0tca45ivtd" path="res://assets/greenball.png" id="1_ju3nf"]
 [ext_resource type="Script" path="res://item.gd" id="1_ldh47"]
+[ext_resource type="Texture2D" uid="uid://psny0irj1gu6" path="res://assets/misc/gymbag.png" id="2_15k8t"]
+[ext_resource type="Texture2D" uid="uid://bibv2weg7t1dd" path="res://assets/misc/pizza.png" id="3_kaiws"]
+[ext_resource type="Texture2D" uid="uid://dt2b6fdod14yf" path="res://assets/star/star0.png" id="4_odvic"]
+[ext_resource type="Texture2D" uid="uid://b7afsyau5gavx" path="res://assets/star/star1.png" id="5_sdd0n"]
+[ext_resource type="Texture2D" uid="uid://4y4rygk3gi80" path="res://assets/star/star2.png" id="6_7dv4e"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8s26l"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_ju3nf")
+"texture": ExtResource("2_15k8t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_kaiws")
 }],
 "loop": true,
-"name": &"item",
+"name": &"default",
+"speed": 0.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f83x6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_odvic")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_sdd0n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_7dv4e")
+}],
+"loop": true,
+"name": &"default",
 "speed": 5.0
 }]
 
@@ -22,8 +46,15 @@ height = 138.0
 script = ExtResource("1_ldh47")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(5.11639, 5.496)
 sprite_frames = SubResource("SpriteFrames_8s26l")
-animation = &"item"
+
+[node name="QualityIndicator" type="AnimatedSprite2D" parent="."]
+position = Vector2(40, -20)
+scale = Vector2(5.86207, 5.13793)
+sprite_frames = SubResource("SpriteFrames_f83x6")
+autoplay = "default"
+frame_progress = 0.95396
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_1bv6a")

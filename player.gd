@@ -121,6 +121,12 @@ func update_stamina(new_stamina: float):
 	stamina = clamp(new_stamina, 0, default_stamina)
 	stamina_changed.emit()
 
+func update_items_visibility(to_show: bool):
+	for item in items_in_contact:
+		if to_show:
+			item.show()
+		else:
+			item.hide()
 
 func attempt_digging():
 	if !keys_disabled and Input.is_action_pressed("accept") and !digging:
@@ -146,12 +152,13 @@ func attempt_attack():
 	if Input.is_action_pressed("attack") and stamina > 0:
 		shovel.attack(get_local_mouse_position().normalized())
 
-
 func _physics_process(delta):
 	attempt_digging()
 	if !keys_disabled and !digging:
 		process_keys(delta)
 		attempt_attack()
+
+	update_items_visibility(digging)
 	move_and_collide(acceleration * delta)
 
 
