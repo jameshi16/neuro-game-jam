@@ -1948,17 +1948,11 @@ pattern_16 = SubResource("TileMapPattern_lu131")
 script = ExtResource("1_je2qw")
 item_scene = ExtResource("5_l1fqu")
 enemies = Array[PackedScene]([ExtResource("8_u7qr8")])
-terrain_set = null
-terrain = null
 generation_steps = 1000
-turning_steps = null
 turn_early_probability = 0.11
-map_size_x = 60
-map_size_y = 40
-navigation_layer = null
-num_enemies = null
+map_size_x = 40
+map_size_y = 50
 num_items = 5
-num_landmarks = null
 
 [node name="Player" parent="." instance=ExtResource("4_85l7j")]
 z_index = 1

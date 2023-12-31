@@ -7,7 +7,7 @@ static var score = 0
 static var fragments = 0
 
 # Tutorial related
-static var cleared_tutorial = true
+static var cleared_tutorial = false
 static var tut_item_displayed = false
 
 # Evil

@@ -112,6 +112,10 @@ func _ready():
 	screen_size = get_viewport_rect().size
 	shovel.attack_landed.connect(player_damages_node)
 
+	# if the player is a returning player, use the arg sprite
+	if State.visited_end:
+		$AnimatedSprite2D.sprite_frames = preload("res://arg_swapin.tres")
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):

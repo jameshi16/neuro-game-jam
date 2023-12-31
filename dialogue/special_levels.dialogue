@@ -81,6 +81,7 @@ neuro: Here, let me look at your shovel.
 ???: (passes the shovel)
 : Neuro upgraded your shovel!
 neuro: You deserve to remember. Go on now.
+set State.visited_neuro = true
 
 
 => END!

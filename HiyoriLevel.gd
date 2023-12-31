@@ -16,6 +16,7 @@ func _process(delta: float) -> void:
 
 func _on_player_dug() -> void:
 	if can_complete_level:
+		State.visited_end = true
 		level_completed.emit()
 
 func _on_grave_area_body_entered(body:Node2D) -> void:
@@ -33,7 +34,7 @@ func _on_hiyori_area_body_entered(body:Node2D) -> void:
 		hud.hide()
 		player.keys_disabled = true
 		player.get_node("AnimatedSprite2D").play("idle_side")
-		player.get_node("AnimatedSprite2D").flip_h = true
+		player.get_node("AnimatedSprite2D").flip_h = false
 		var balloon = Balloon.instantiate()
 		get_tree().current_scene.add_child(balloon)
 		balloon.start(load("res://dialogue/special_levels.dialogue"), "hiyori_1")
@@ -51,6 +52,7 @@ func _on_conversation_ended(_not_used) -> void:
 		return
 
 	$NPCHiyori.hide()
+	$NPCHiyori.queue_free()
 	player.keys_disabled = false
 	player.get_node("AnimatedSprite2D").sprite_frames = preload("res://arg_swapin.tres")
 
