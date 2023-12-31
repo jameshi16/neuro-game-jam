@@ -15,6 +15,7 @@ class_name Main
 @export var navigation_layer = 0
 @export var num_enemies = 5
 @export var num_items = 10
+@export var num_landmarks = 20
 
 # Metadata
 var tilemap_size
@@ -113,6 +114,7 @@ func select_level():
 	var path = level_gen.generate_level()
 
 	# fill with the collision tiles first
+	clear_foreground_layer()
 	fill_with_with_collision_tiles()
 	$TileMap.set_cells_terrain_connect(navigation_layer, path, terrain_set, terrain, false)
 
@@ -123,6 +125,10 @@ func select_level():
 	var mob_locations = path.duplicate()
 	mob_locations.shuffle()
 	spawn_mobs(mob_locations.slice(0, num_enemies))
+
+	var landmark_locations = path.duplicate()
+	landmark_locations.shuffle()
+	spawn_landmarks(landmark_locations.slice(0, num_landmarks))
 
 	$Player.reset(global_pos)
 
@@ -172,10 +178,45 @@ func update_score(item: Item):
 	$UI.update_score(score)
 
 
+func clear_foreground_layer():
+	for i in tilemap_size.x + 2:
+		for j in tilemap_size.y + 2:
+			$TileMap.set_cell(1, Vector2(i - 1, j - 1))
+
 func fill_with_with_collision_tiles():
 	for i in tilemap_size.x + 2:
 		for j in tilemap_size.y + 2:
 			$TileMap.set_cell(navigation_layer, Vector2(i - 1, j - 1), 0, Vector2(0, 0))
+
+func is_pattern_overlapping_starting_location(location: Vector2, pattern: TileMapPattern) -> bool:
+	var pattern_size = pattern.get_size()
+	for i in pattern_size.x:
+		for j in pattern_size.y:
+			var tile_pos = Vector2(location.x + i, location.y + j)
+			if $TileMap.get_cell_source_id(1, tile_pos) != -1 or \
+				$TileMap.get_cell_source_id(0, tile_pos) == 0:
+				return true
+	return false
+
+func apply_pattern_at_location(location: Vector2, pattern: TileMapPattern):
+	var pattern_size = pattern.get_size()
+	for i in pattern_size.x:
+		for j in pattern_size.y:
+			var tile = pattern.get_cell_source_id(Vector2(i, j))
+			var atlas = pattern.get_cell_atlas_coords(Vector2(i, j))
+			var tile_pos = Vector2(location.x + i, location.y + j)
+			$TileMap.set_cell(1, tile_pos, tile, atlas)
+
+
+func spawn_landmarks(locations: Array):
+	for location in locations:
+		for n in 10: # try a maximum of 10 times
+			var tileset = $TileMap.tile_set
+			var pattern = tileset.get_pattern(randi() % tileset.get_patterns_count())
+
+			if !is_pattern_overlapping_starting_location(location, pattern):
+				apply_pattern_at_location(location, pattern)
+				break
 
 
 func spawn_mobs(locations: Array):
