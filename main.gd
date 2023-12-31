@@ -57,6 +57,7 @@ func level_begin():
 	# This function should be called as part of the callback to the timer.
 	# Signifies the beginning of the contallable game
 	level_began = true
+	$Player.get_node("PositionIndicator").hide()
 	$Player.keys_disabled = false
 	$Player.reset_camera_view()
 	$UI.show()
@@ -67,9 +68,11 @@ func level_begin():
 
 	for item in items_to_collect:
 		item.hide()
+		item.get_node("PositionIndicator").hide()
 
 	for enemy in enemies_in_scene:
 		enemy.physics_enabled = true
+		enemy.get_node("PositionIndicator").hide()
 
 	$MapTimer.start()
 
@@ -234,6 +237,7 @@ func spawn_mobs(locations: Array):
 		enemy.target = $Player
 		enemy.set_navigation_map(navmap)
 		enemy.dead.connect(_on_enemy_die)
+		enemy.get_node("PositionIndicator").show()
 		enemies_in_scene.append(enemy)
 
 
@@ -243,6 +247,7 @@ func spawn_items(locations: Array):
 		item_instance.position = Vector2(
 			(location.x + 0.5) * tilemap_scale.x, (location.y + 0.5) * tilemap_scale.y
 		)
+		item_instance.get_node("PositionIndicator").show()
 		add_child(item_instance)
 		item_instance.collected.connect(update_score)
 		items_to_collect.append(item_instance)
@@ -294,6 +299,9 @@ func reset():
 	restart_cooling_down = true
 	$MapTimer.stop()
 	$RestartCooldownTimer.start()
+
+	# Reset state of position indicators
+	$Player.get_node("PositionIndicator").show()
 
 
 func _on_player_hit():

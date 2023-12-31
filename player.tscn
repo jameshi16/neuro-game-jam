@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://7l2v6e7pekj6"]
+[gd_scene load_steps=64 format=3 uid="uid://7l2v6e7pekj6"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_f3dqi"]
 [ext_resource type="Texture2D" uid="uid://v4chc7pnvj0d" path="res://assets/neuro_dig/neuro_digging0.png" id="2_7yj0t"]
@@ -47,6 +47,8 @@
 [ext_resource type="Texture2D" uid="uid://dp3p5tqkf0mim" path="res://assets/neuro_walk/back_walk3.png" id="37_115qh"]
 [ext_resource type="Texture2D" uid="uid://dvnn8vtvxnvoy" path="res://assets/neuro_walk/back_walk4.png" id="38_3qy6c"]
 [ext_resource type="Texture2D" uid="uid://d1260tv7vxxtw" path="res://assets/neuro_walk/back_walk5.png" id="39_dilu3"]
+[ext_resource type="PackedScene" uid="uid://do6lg261pwkhh" path="res://position_indicator.tscn" id="48_c3pcd"]
+[ext_resource type="Texture2D" uid="uid://cqw0tca45ivtd" path="res://assets/greenball.png" id="49_thad3"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qh6du"]
 radius = 27.0
@@ -544,6 +546,7 @@ one_shot = true
 shape = SubResource("CapsuleShape2D_qh6du")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 1
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_1ji3o")
 animation = &"walk_side"
@@ -582,6 +585,17 @@ libraries = {
 [node name="DirectionMarker" type="Marker2D" parent="."]
 
 [node name="ShovelTimer" type="Timer" parent="."]
+
+[node name="PositionIndicator" parent="." instance=ExtResource("48_c3pcd")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("49_thad3")
+label = "player"
 
 [connection signal="timeout" from="KnockbackTimer" to="." method="_on_knockback_timer_timeout"]
 [connection signal="timeout" from="InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]

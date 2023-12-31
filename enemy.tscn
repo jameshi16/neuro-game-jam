@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://ds6u2am7kkxbo"]
+[gd_scene load_steps=7 format=3 uid="uid://ds6u2am7kkxbo"]
 
 [ext_resource type="Script" path="res://enemy.gd" id="1_q7ji2"]
 [ext_resource type="Texture2D" uid="uid://c4ku0vmgijne6" path="res://assets/redball.png" id="1_s2ofl"]
+[ext_resource type="PackedScene" uid="uid://do6lg261pwkhh" path="res://position_indicator.tscn" id="3_gpccr"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pk0lj"]
 radius = 27.0
@@ -53,6 +54,11 @@ offset_top = -57.0
 offset_right = 45.0
 offset_bottom = -30.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_wimga")
+
+[node name="PositionIndicator" parent="." instance=ExtResource("3_gpccr")]
+visible = false
+texture = ExtResource("1_s2ofl")
+label = "enemy"
 
 [connection signal="timeout" from="NavigationTimer" to="." method="_on_navigation_timer_timeout"]
 [connection signal="path_changed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_path_changed"]

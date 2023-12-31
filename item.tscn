@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bqghgbvpu0p5x"]
+[gd_scene load_steps=12 format=3 uid="uid://bqghgbvpu0p5x"]
 
 [ext_resource type="Script" path="res://item.gd" id="1_ldh47"]
 [ext_resource type="Texture2D" uid="uid://psny0irj1gu6" path="res://assets/misc/gymbag.png" id="2_15k8t"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://dt2b6fdod14yf" path="res://assets/star/star0.png" id="4_odvic"]
 [ext_resource type="Texture2D" uid="uid://b7afsyau5gavx" path="res://assets/star/star1.png" id="5_sdd0n"]
 [ext_resource type="Texture2D" uid="uid://4y4rygk3gi80" path="res://assets/star/star2.png" id="6_7dv4e"]
+[ext_resource type="PackedScene" uid="uid://do6lg261pwkhh" path="res://position_indicator.tscn" id="7_ea775"]
+[ext_resource type="Texture2D" uid="uid://e0vyh1jffxql" path="res://assets/blueball.png" id="8_h6go3"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8s26l"]
 animations = [{
@@ -46,20 +48,23 @@ height = 138.0
 script = ExtResource("1_ldh47")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 1
 scale = Vector2(5.11639, 5.496)
 sprite_frames = SubResource("SpriteFrames_8s26l")
 
 [node name="QualityIndicator" type="AnimatedSprite2D" parent="."]
+z_index = 1
 position = Vector2(40, -20)
 scale = Vector2(5.86207, 5.13793)
 sprite_frames = SubResource("SpriteFrames_f83x6")
 autoplay = "default"
-frame_progress = 0.95396
+frame_progress = 0.707129
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_1bv6a")
 
 [node name="QualityLabel" type="Label" parent="."]
+z_index = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -73,3 +78,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 64
 text = "low"
+
+[node name="PositionIndicator" parent="." instance=ExtResource("7_ea775")]
+visible = false
+texture = ExtResource("8_h6go3")
+label = "item"
