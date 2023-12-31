@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://n71lo7skolus"
-path="res://.godot/imported/misc4.png-83b96d23e57adb306ef5e7aca198b17d.ctex"
+uid="uid://bjmq06dr8pv5d"
+path="res://.godot/imported/dialogue_hiyori.png-c91d759208adf41abaaac7d059e4a9fa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/misc/misc4.png"
-dest_files=["res://.godot/imported/misc4.png-83b96d23e57adb306ef5e7aca198b17d.ctex"]
+source_file="res://assets/misc/dialogue_hiyori.png"
+dest_files=["res://.godot/imported/dialogue_hiyori.png-c91d759208adf41abaaac7d059e4a9fa.ctex"]
 
 [params]
 

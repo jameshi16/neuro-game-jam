@@ -1,14 +1,16 @@
 extends SpecialLevelBase
 class_name SLB_Tutorial
 
+const Balloon = preload("res://dialogue/balloon.tscn")
+
 # Implementing a simple state manager just for this scene to prove that I can do it
 # and I'm just choosing not to
 # The DialogueManager can actually also set the state directly, but it's fine :clueless:
 
-static func show_dialogue(title: String):
-	# abstraction so that I can change the dialogue balloon later
-	# (surely that will happen)
-	DialogueManager.show_example_dialogue_balloon(load("res://dialogue/tutorial.dialogue"), title)
+func show_dialogue(title: String):
+	var balloon = Balloon.instantiate()
+	get_tree().current_scene.add_child(balloon)
+	balloon.start(load("res://dialogue/tutorial.dialogue"), title)
 
 class BaseState:
 	var keys_enabled = false
@@ -40,7 +42,7 @@ class Stage5State extends BaseState:
 			if state_parent.get_node(item):
 				return self
 
-		SLB_Tutorial.show_dialogue("tutorial_6")
+		state_parent.show_dialogue("tutorial_6")
 		return SLB_Tutorial.BaseState.new(state_parent)
 
 class Stage4State extends BaseState:
@@ -55,7 +57,7 @@ class Stage4State extends BaseState:
 
 	func advance_maybe() -> BaseState:
 		if attacked:
-			SLB_Tutorial.show_dialogue("tutorial_5")
+			state_parent.show_dialogue("tutorial_5")
 			state_parent.get_node("TutorialItem2").show()
 			state_parent.get_node("TutorialItem3").show()
 			state_parent.get_node("TutorialItem4").show()
@@ -68,7 +70,7 @@ class Stage3State extends BaseState:
 
 	func advance_maybe() -> BaseState:
 		if !state_parent.get_node("TutorialItem1"):
-			SLB_Tutorial.show_dialogue("tutorial_4")
+			state_parent.show_dialogue("tutorial_4")
 			return SLB_Tutorial.Stage4State.new(state_parent)
 		return self
 
@@ -93,7 +95,7 @@ class Stage2State extends BaseState:
 
 		if shift_pressed and !Input.is_action_pressed("sprint") and !part1:
 			state_parent.get_node("TutorialItem1").show()
-			SLB_Tutorial.show_dialogue("tutorial_3")
+			state_parent.show_dialogue("tutorial_3")
 			part1 = true
 
 			if camera:
@@ -133,7 +135,7 @@ class Stage1State extends BaseState:
 	func advance_maybe() -> BaseState:
 		# world's best code, could have used a bitmask omegalul
 		if [w_pressed, a_pressed, s_pressed, d_pressed].count(true) == 3:
-			SLB_Tutorial.show_dialogue("tutorial_2")
+			state_parent.show_dialogue("tutorial_2")
 			return SLB_Tutorial.Stage2State.new(state_parent)
 		return self
 
@@ -153,7 +155,7 @@ func _ready() -> void:
 
 
 func level_began() -> void:
-	SLB_Tutorial.show_dialogue("tutorial_1")
+	self.show_dialogue("tutorial_1")
 
 func _on_dialogue_started(_not_used):
 	player.keys_disabled = true

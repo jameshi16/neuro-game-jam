@@ -20,6 +20,11 @@ config/icon="res://icon.svg"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 State="*res://state.gd"
 
+[dialogue_manager]
+
+general/balloon_path="res://dialogue/balloon.tscn"
+general/custom_test_scene_path="res://dialogue/test_dialogue.tscn"
+
 [display]
 
 window/size/viewport_width=1000

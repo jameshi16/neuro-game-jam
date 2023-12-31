@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bjmq06dr8pv5d"
-path="res://.godot/imported/misc2.png-b22327e5ad181b3c7176165b1f377574.ctex"
+uid="uid://bibv2weg7t1dd"
+path="res://.godot/imported/pizza.png-2bc0ef87e974c6a9e2845b7ff52f8047.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/misc/misc2.png"
-dest_files=["res://.godot/imported/misc2.png-b22327e5ad181b3c7176165b1f377574.ctex"]
+source_file="res://assets/misc/pizza.png"
+dest_files=["res://.godot/imported/pizza.png-2bc0ef87e974c6a9e2845b7ff52f8047.ctex"]
 
 [params]
 

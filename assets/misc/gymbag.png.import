@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cb031daddlm4a"
-path="res://.godot/imported/misc1.png-f2eb6d54823421dd90fce3ac4dd2739a.ctex"
+uid="uid://psny0irj1gu6"
+path="res://.godot/imported/gymbag.png-6d1eca1b6034fbfe6f3bf91f12ea445f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/misc/misc1.png"
-dest_files=["res://.godot/imported/misc1.png-f2eb6d54823421dd90fce3ac4dd2739a.ctex"]
+source_file="res://assets/misc/gymbag.png"
+dest_files=["res://.godot/imported/gymbag.png-6d1eca1b6034fbfe6f3bf91f12ea445f.ctex"]
 
 [params]
 
