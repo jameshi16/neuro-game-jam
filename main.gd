@@ -25,7 +25,6 @@ var restart_cooling_down = true
 var level_began = false
 
 # Game variables
-var score = 0
 var items_to_collect: Array[Item] = []
 var enemies_in_scene: Array[Enemy] = []
 var current_special_level: SpecialLevelBase
@@ -176,9 +175,9 @@ func _process(delta):
 
 
 func update_score(item: Item):
-	score += item.worth_to_score[item.worth]
+	State.score += item.worth_to_score[item.worth]
 	items_to_collect.erase(item)
-	$UI.update_score(score)
+	$UI.update_score(State.score)
 
 
 func clear_foreground_layer():
@@ -268,7 +267,7 @@ func game_over(lost: bool):
 	free_items()
 	free_enemies()
 	if lost:
-		score = min(score - 10, 0)
+		State.score = min(State.score - 10, 0)
 		$UI.hide()
 		$Camera2D.get_node("MapOverviewUI").hide()
 		$GameOver.show()
@@ -320,8 +319,8 @@ func _on_player_stamina_changed() -> void:
 	$UI.update_stamina($Player.stamina)
 
 func _on_enemy_die(enemy: Enemy, defeat_score: float) -> void:
-	score += defeat_score
-	$UI.update_score(score)
+	State.score += defeat_score
+	$UI.update_score(State.score)
 	enemies_in_scene.erase(enemy)
 	enemy.queue_free()
 
