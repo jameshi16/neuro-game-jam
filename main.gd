@@ -99,6 +99,9 @@ func select_level():
 
 	# "Time left" will not be on the HUD if it is a special level
 
+	load_fixed_level(preload("res://special_levels/cut_scene.tscn"))
+	return
+
 	if !State.cleared_tutorial:
 		load_fixed_level(preload("res://special_levels/tutorial.tscn"))
 		return
