@@ -23,6 +23,8 @@ var health = default_health
 var stamina = default_stamina
 var acceleration = Vector2(0, 0)
 var invincible = false
+var current_hflip = false
+var current_animation_suffix = 'down'
 @onready var shovel: Shovel = NormalShovel.new(self, $ShovelTimer)
 
 var items_in_contact: Array[Item] = []
@@ -40,8 +42,7 @@ func process_keys(_delta):
 	if Input.is_action_pressed("move_down"):
 		vel.y += 1
 
-	# TODO: Deprecation. The following is no longer used, but is still in the scene just in case.
-	# (may need it for interactions)
+	# TODO: Deprecated block clueless
 	# it's possible for all buttons to be pressed. so, we do a big
 	# brain move and use the vector to figure out what animation to
 	# play (it's not possible to be up and down at the same time if we think in vectors)
@@ -51,20 +52,46 @@ func process_keys(_delta):
 	# if vel.y > 0:
 	# 	animation_composition.append("down")
 	# if vel.x < 0:
-	# 	animation_composition.append("left")
+	# 	animation_composition.append("side")
+	# 	current_hflip = true
 	# if vel.x > 0:
-	# 	animation_composition.append("right")
-	# $AnimationPlayer.play("_".join(animation_composition))
+	# 	animation_composition.append("side")
+	# 	current_hflip = false
+
+	# var new_animation_composition = "_".join(animation_composition)
+	# if new_animation_composition != '':
+	# 	current_animation_composition = new_animation_composition
+	# $AnimationPlayer.play(current_animation_composition)
+
+	var new_animation_prefix = 'idle'
+	var new_animation_suffix = current_animation_suffix
+	var new_hflip = current_hflip
+	if vel.x < 0:
+		new_animation_suffix = 'side'
+		new_hflip = true
+	if vel.x > 0:
+		new_animation_suffix = 'side'
+		new_hflip = false
+	if vel.y < 0:
+		new_animation_suffix = 'up'
+	if vel.y > 0:
+		new_animation_suffix = 'down'
 
 	var new_stamina = stamina
 	if vel.length() > 0:
+		new_animation_prefix = 'walk'
 		vel = vel.normalized() * speed
 		if new_stamina > 0 and Input.is_action_pressed("sprint"):
 			vel *= sprint_mod
-			$AnimatedSprite2D.play("idle")
+			# $AnimatedSprite2D.play("idle_up")
+			# $AnimatedSprite2D.play("idle")
 			new_stamina -= stamina_consumption_rate * sprinting_stamina_consumption_mod
-	else:
-		$AnimatedSprite2D.stop()
+
+	$AnimatedSprite2D.play('_'.join([new_animation_prefix, new_animation_suffix]))
+	$AnimatedSprite2D.flip_h = new_hflip
+
+	current_hflip = new_hflip
+	current_animation_suffix = new_animation_suffix
 
 	# stamina regen shouldn't happen if we're cooling down from a shovel attack
 	# or digging
@@ -102,11 +129,14 @@ func attempt_digging():
 		$DiggingProgressBar.value = 0
 		$DiggingProgressBar.max_value = $DiggingTimer.wait_time
 		$DiggingProgressBar.show()
+		$AnimatedSprite2D.play("dig")
 		digging = true
 	elif keys_disabled or !Input.is_action_pressed("accept") or stamina <= 0:
 		$DiggingTimer.stop()
 		$DiggingProgressTimer.stop()
 		$DiggingProgressBar.hide()
+		if $AnimatedSprite2D.animation == "dig":
+			$AnimatedSprite2D.stop()
 		digging = false
 
 	if digging:

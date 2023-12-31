@@ -1972,7 +1972,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 10
 
 [node name="TileMap" type="TileMap" parent="."]
-scale = Vector2(5, 5.988)
+scale = Vector2(5, 5)
 tile_set = SubResource("TileSet_q7tut")
 format = 2
 layer_0/name = "background"

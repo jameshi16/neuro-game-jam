@@ -202,8 +202,12 @@ func apply_pattern_at_location(location: Vector2, pattern: TileMapPattern):
 	var pattern_size = pattern.get_size()
 	for i in pattern_size.x:
 		for j in pattern_size.y:
-			var tile = pattern.get_cell_source_id(Vector2(i, j))
-			var atlas = pattern.get_cell_atlas_coords(Vector2(i, j))
+			var p_coords = Vector2(i, j)
+			if !pattern.has_cell(p_coords):
+				continue
+
+			var tile = pattern.get_cell_source_id(p_coords)
+			var atlas = pattern.get_cell_atlas_coords(p_coords)
 			var tile_pos = Vector2(location.x + i, location.y + j)
 			$TileMap.set_cell(1, tile_pos, tile, atlas)
 
