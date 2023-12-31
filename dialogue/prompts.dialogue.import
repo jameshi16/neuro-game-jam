@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_11"
+type="Resource"
+uid="uid://drilqtdss3jjj"
+path="res://.godot/imported/prompts.dialogue-174a1345bb6d40f2650276277e0471ca.tres"
+
+[deps]
+
+source_file="res://dialogue/prompts.dialogue"
+dest_files=["res://.godot/imported/prompts.dialogue-174a1345bb6d40f2650276277e0471ca.tres"]
+
+[params]
+
+defaults=true

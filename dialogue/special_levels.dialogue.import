@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_11"
+type="Resource"
+uid="uid://dfibhalfvtq76"
+path="res://.godot/imported/special_levels.dialogue-d92b44c8580e5f28413f24ac7dee20ee.tres"
+
+[deps]
+
+source_file="res://dialogue/special_levels.dialogue"
+dest_files=["res://.godot/imported/special_levels.dialogue-d92b44c8580e5f28413f24ac7dee20ee.tres"]
+
+[params]
+
+defaults=true
