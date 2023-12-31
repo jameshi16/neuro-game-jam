@@ -375,3 +375,6 @@ func _on_map_timer_timeout() -> void:
 
 func _on_game_over_timer_timeout() -> void:
 	reset()
+
+func _on_audio_stream_player_finished() -> void:
+	$AudioStreamPlayer.play()

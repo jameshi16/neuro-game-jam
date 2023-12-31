@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://deu1j0ylajktt"]
+[gd_scene load_steps=53 format=3 uid="uid://deu1j0ylajktt"]
 
 [ext_resource type="Texture2D" uid="uid://ckabt13e22v7m" path="res://assets/tiles/Props.png" id="1_2fcvf"]
 [ext_resource type="Script" path="res://main.gd" id="1_je2qw"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://gfw0s610axs5" path="res://melee_enemy.tscn" id="8_u7qr8"]
 [ext_resource type="PackedScene" uid="uid://b8eeu5cfqg5" path="res://map_overview_ui.tscn" id="9_vueip"]
 [ext_resource type="PackedScene" uid="uid://c2p34bkdbd44p" path="res://game_over.tscn" id="11_mq3pp"]
+[ext_resource type="AudioStream" path="res://assets/bgm.ogg" id="12_twljh"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_ed3s7"]
 tile_data = PackedInt32Array(65536, 3, 19, 131072, 3, 20, 65537, 65539, 19, 131073, 65539, 20, 2, 131075, 18, 65538, 131075, 19, 131074, 131075, 20, 196610, 131075, 21, 3, 196611, 18, 65539, 196611, 19, 131075, 196611, 20, 196611, 196611, 21, 4, 262147, 18, 65540, 262147, 19, 131076, 262147, 20, 196612, 262147, 21, 5, 327683, 18, 65541, 327683, 19, 131077, 327683, 20, 196613, 327683, 21, 6, 393219, 18, 65542, 393219, 19, 131078, 393219, 20, 196614, 393219, 21, 7, 458755, 18, 65543, 458755, 19, 131079, 458755, 20, 196615, 458755, 21, 8, 524291, 18, 65544, 524291, 19, 131080, 524291, 20, 196616, 524291, 21, 9, 589827, 18, 65545, 589827, 19, 131081, 589827, 20, 10, 655363, 18, 65546, 655363, 19, 131082, 655363, 20, 65547, 720899, 19)
@@ -1995,9 +1996,14 @@ one_shot = true
 wait_time = 120.0
 one_shot = true
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_twljh")
+autoplay = true
+
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
 [connection signal="player_died" from="Player" to="." method="_on_player_player_died"]
 [connection signal="stamina_changed" from="Player" to="." method="_on_player_stamina_changed"]
 [connection signal="timeout" from="RestartCooldownTimer" to="." method="_on_restart_cooldown_timer_timeout"]
 [connection signal="timeout" from="GameOverTimer" to="." method="_on_game_over_timer_timeout"]
 [connection signal="timeout" from="MapTimer" to="." method="_on_map_timer_timeout"]
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]

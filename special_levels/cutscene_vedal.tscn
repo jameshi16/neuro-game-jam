@@ -428,12 +428,13 @@ libraries = {
 
 [node name="Hiyori" type="AnimatedSprite2D" parent="."]
 z_index = 1
-position = Vector2(376, 389)
+position = Vector2(824, 588)
+rotation = 1.5708
 scale = Vector2(7.01041, 7.01041)
 sprite_frames = SubResource("SpriteFrames_h7dx2")
 
 [node name="Enemy" type="AnimatedSprite2D" parent="."]
-position = Vector2(82, 500)
+position = Vector2(-194, 500)
 scale = Vector2(16.25, 16.25)
 sprite_frames = SubResource("SpriteFrames_dj36g")
 flip_h = true
@@ -457,21 +458,20 @@ default_color = Color(0.764706, 0.764706, 0.764706, 1)
 visible = false
 position = Vector2(468, 501)
 scale = Vector2(15.1562, 7)
-energy = 5.5
+energy = 0.0
 shadow_color = Color(1, 1, 1, 1)
 texture = SubResource("GradientTexture2D_f0k65")
 
 [node name="Slash" type="AnimatedSprite2D" parent="."]
+visible = false
 z_index = 2
 position = Vector2(244, 375)
 scale = Vector2(9.96875, 10.6875)
 sprite_frames = SubResource("SpriteFrames_67oix")
-frame = 4
 
 [node name="Blood" type="GPUParticles2D" parent="."]
 z_index = 1
 position = Vector2(367, 415)
-emitting = false
 amount = 800
 process_material = SubResource("ParticleProcessMaterial_bvaq1")
 texture = SubResource("GradientTexture2D_cocps")
@@ -487,8 +487,7 @@ texture = SubResource("GradientTexture2D_yfxfv")
 position = Vector2(503, 403)
 
 [node name="Vedal" type="AnimatedSprite2D" parent="."]
-position = Vector2(832.6, 169.2)
+position = Vector2(392.5, 388.5)
 scale = Vector2(6.96875, 6.96875)
 sprite_frames = SubResource("SpriteFrames_lh0wv")
-frame = 1
 metadata/_edit_group_ = true
