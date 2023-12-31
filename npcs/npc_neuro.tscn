@@ -1,0 +1,42 @@
+[gd_scene load_steps=8 format=3 uid="uid://bb3eu0cwkqu1j"]
+
+[ext_resource type="Texture2D" uid="uid://cvyu6tb4xwfqr" path="res://assets/neuro/new_neuro_sprite0.png" id="1_2bepy"]
+[ext_resource type="Texture2D" uid="uid://c751xvbpq3eo3" path="res://assets/neuro/new_neuro_sprite1.png" id="2_lstv0"]
+[ext_resource type="Texture2D" uid="uid://bip4gawj6xsxl" path="res://assets/neuro/new_neuro_sprite2.png" id="3_0oj76"]
+[ext_resource type="Texture2D" uid="uid://kfx8k7sxwgy" path="res://assets/neuro/new_neuro_sprite3.png" id="4_gibow"]
+[ext_resource type="Texture2D" uid="uid://bm02qjueeqg5t" path="res://assets/neuro/new_neuro_sprite4.png" id="5_4f0f2"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o3kxi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_2bepy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_lstv0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_0oj76")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_gibow")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_4f0f2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xwesg"]
+radius = 9.0
+
+[node name="NPCNeuro" type="CharacterBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_o3kxi")
+frame_progress = 0.981163
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_xwesg")
