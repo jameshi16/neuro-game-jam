@@ -188,7 +188,7 @@ tracks/2/path = NodePath("CutsceneVedal/Slash:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(2, 2.5),
+"times": PackedFloat32Array(0, 2.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -200,10 +200,10 @@ tracks/3/path = NodePath("CutsceneVedal/Slash:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(2.5, 2.8, 3.2, 3.7, 4.1, 4.4, 4.7, 5, 5.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(2.3, 2.5, 2.8, 3.2, 3.7, 4.1, 4.4, 4.7, 5, 5.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+"values": [8, 0, 1, 2, 3, 4, 5, 6, 7, 8]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -236,10 +236,10 @@ tracks/6/path = NodePath("CutsceneVedal/Vedal:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(3.4, 3.7, 4.7),
+"times": PackedFloat32Array(3.1, 3.2, 4.7),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(392.5, 388.5), Vector2(392.5, 388.5), Vector2(873, 171)]
+"values": [Vector2(392.5, 388.5), Vector2(392.5, 388.5), Vector2(1126, 23)]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
@@ -248,7 +248,7 @@ tracks/7/path = NodePath("CutsceneVedal/Vedal:rotation")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(3.4),
+"times": PackedFloat32Array(3.1),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
@@ -260,7 +260,7 @@ tracks/8/path = NodePath("CutsceneVedal/Vedal:frame")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(3.4, 3.7),
+"times": PackedFloat32Array(3.1, 3.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [0, 1]
@@ -272,7 +272,7 @@ tracks/9/path = NodePath("CutsceneVedal/Blood:emitting")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(5.3, 5.7),
+"times": PackedFloat32Array(0, 5.7),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -301,20 +301,6 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_icikk")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_lh0wv"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_ssfcf")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_wmk1x")
 }],
 "loop": true,
 "name": &"default",
@@ -421,6 +407,20 @@ colors = PackedColorArray(1, 1, 1, 1)
 gradient = SubResource("Gradient_phwyd")
 fill_from = Vector2(0, 0.15812)
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_lh0wv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ssfcf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_wmk1x")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="CutsceneVedal" type="AnimationPlayer"]
 libraries = {
 "": SubResource("AnimationLibrary_b1fq6")
@@ -428,18 +428,12 @@ libraries = {
 
 [node name="Hiyori" type="AnimatedSprite2D" parent="."]
 z_index = 1
-position = Vector2(824, 588)
-rotation = 1.5708
+position = Vector2(376, 389)
 scale = Vector2(7.01041, 7.01041)
 sprite_frames = SubResource("SpriteFrames_h7dx2")
 
-[node name="Vedal" type="AnimatedSprite2D" parent="."]
-position = Vector2(392.5, 388.5)
-scale = Vector2(6.96875, 6.96875)
-sprite_frames = SubResource("SpriteFrames_lh0wv")
-
 [node name="Enemy" type="AnimatedSprite2D" parent="."]
-position = Vector2(-194, 500)
+position = Vector2(82, 500)
 scale = Vector2(16.25, 16.25)
 sprite_frames = SubResource("SpriteFrames_dj36g")
 flip_h = true
@@ -463,20 +457,21 @@ default_color = Color(0.764706, 0.764706, 0.764706, 1)
 visible = false
 position = Vector2(468, 501)
 scale = Vector2(15.1562, 7)
-energy = 0.0
+energy = 5.5
 shadow_color = Color(1, 1, 1, 1)
 texture = SubResource("GradientTexture2D_f0k65")
 
 [node name="Slash" type="AnimatedSprite2D" parent="."]
-visible = false
 z_index = 2
 position = Vector2(244, 375)
 scale = Vector2(9.96875, 10.6875)
 sprite_frames = SubResource("SpriteFrames_67oix")
+frame = 4
 
 [node name="Blood" type="GPUParticles2D" parent="."]
 z_index = 1
 position = Vector2(367, 415)
+emitting = false
 amount = 800
 process_material = SubResource("ParticleProcessMaterial_bvaq1")
 texture = SubResource("GradientTexture2D_cocps")
@@ -490,3 +485,10 @@ texture = SubResource("GradientTexture2D_yfxfv")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(503, 403)
+
+[node name="Vedal" type="AnimatedSprite2D" parent="."]
+position = Vector2(832.6, 169.2)
+scale = Vector2(6.96875, 6.96875)
+sprite_frames = SubResource("SpriteFrames_lh0wv")
+frame = 1
+metadata/_edit_group_ = true

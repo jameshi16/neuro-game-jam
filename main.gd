@@ -103,8 +103,16 @@ func select_level():
 		load_fixed_level(preload("res://special_levels/tutorial.tscn"))
 		return
 
-	if !State.visited_evil:
-		load_fixed_level(preload("res://special_levels/evil_level.tscn"))
+	# if !State.visited_evil:
+	# 	load_fixed_level(preload("res://special_levels/evil_level.tscn"))
+	# 	return
+
+	# if !State.visited_neuro:
+	# 	load_fixed_level(preload("res://special_levels/neuro_level.tscn"))
+	# 	return
+
+	if !State.visited_end:
+		load_fixed_level(preload("res://special_levels/hiyori_level.tscn"))
 		return
 
 	# generate a world here (TODO: tilemap_size is a temporary size)

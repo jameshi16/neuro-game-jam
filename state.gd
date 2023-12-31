@@ -12,3 +12,9 @@ static var tut_item_displayed = false
 
 # Evil
 static var visited_evil = false
+
+# Neuro
+static var visited_neuro = false
+
+# The end
+static var visited_end = false

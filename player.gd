@@ -3,6 +3,7 @@ class_name Player
 signal hit
 signal player_died
 signal stamina_changed
+signal finished_digging
 
 # add a variable that adjusts speed
 
@@ -253,6 +254,7 @@ func _on_digging_timer_timeout() -> void:
 	digging = false
 	for item in items_in_contact:
 		item.collect()
+	finished_digging.emit()
 
 
 func _on_digging_progress_timer_timeout() -> void:

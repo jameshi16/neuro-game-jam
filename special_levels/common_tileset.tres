@@ -1,9 +1,11 @@
-[gd_resource type="TileSet" load_steps=28 format=3 uid="uid://bkhbof0boh4nu"]
+[gd_resource type="TileSet" load_steps=32 format=3 uid="uid://bkhbof0boh4nu"]
 
 [ext_resource type="Texture2D" uid="uid://bhnv18tott0yu" path="res://assets/collision.png" id="1_nu7f2"]
 [ext_resource type="Texture2D" uid="uid://ckabt13e22v7m" path="res://assets/tiles/Props.png" id="2_sq1ef"]
 [ext_resource type="Texture2D" uid="uid://ga7kp08gr0ie" path="res://assets/tiles/Tiles.png" id="3_jbtmf"]
 [ext_resource type="Texture2D" uid="uid://cwdk2lmsu17ge" path="res://assets/tiles/Trees.png" id="4_hhgwn"]
+[ext_resource type="Texture2D" uid="uid://b653eycxbh1dw" path="res://assets/misc/grave.png" id="5_ufhym"]
+[ext_resource type="Texture2D" uid="uid://jb4dnvllh1gy" path="res://assets/misc/flowers.png" id="6_wspej"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_gcdkx"]
 tile_data = PackedInt32Array(0, 3, 0, 65536, 3, 1, 131072, 3, 2, 196608, 3, 3, 262144, 3, 4, 1, 65539, 0, 65537, 65539, 1, 131073, 65539, 2, 196609, 65539, 3, 262145, 65539, 4, 327681, 65539, 5, 2, 131075, 0, 65538, 131075, 1, 131074, 131075, 2, 196610, 131075, 3, 262146, 131075, 4)
@@ -1857,6 +1859,36 @@ texture = ExtResource("4_hhgwn")
 8:21/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 8:21/0/physics_layer_0/angular_velocity = 0.0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ek27r"]
+texture = ExtResource("5_ufhym")
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+0:1/0 = 0
+0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:1/0/physics_layer_0/angular_velocity = 0.0
+1:1/0 = 0
+1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:1/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ir2o7"]
+texture = ExtResource("6_wspej")
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+0:1/0 = 0
+0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:1/0/physics_layer_0/angular_velocity = 0.0
+1:1/0 = 0
+1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:1/0/physics_layer_0/angular_velocity = 0.0
+
 [resource]
 physics_layer_0/collision_layer = 1
 terrain_set_0/mode = 0
@@ -1870,4 +1902,6 @@ sources/1 = SubResource("TileSetAtlasSource_dbs4p")
 sources/2 = SubResource("TileSetAtlasSource_aodkb")
 sources/3 = SubResource("TileSetAtlasSource_6424k")
 sources/0 = SubResource("TileSetAtlasSource_y4146")
+sources/4 = SubResource("TileSetAtlasSource_ek27r")
+sources/5 = SubResource("TileSetAtlasSource_ir2o7")
 pattern_0 = SubResource("TileMapPattern_gcdkx")
