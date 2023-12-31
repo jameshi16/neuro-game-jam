@@ -1,8 +1,23 @@
-[gd_scene load_steps=7 format=3 uid="uid://ds6u2am7kkxbo"]
+[gd_scene load_steps=22 format=3 uid="uid://ds6u2am7kkxbo"]
 
 [ext_resource type="Script" path="res://enemy.gd" id="1_q7ji2"]
 [ext_resource type="Texture2D" uid="uid://c4ku0vmgijne6" path="res://assets/redball.png" id="1_s2ofl"]
+[ext_resource type="Texture2D" uid="uid://brnvbcd7q4oss" path="res://assets/enemy/enemy00.png" id="2_rf5ef"]
+[ext_resource type="Texture2D" uid="uid://cila4a2jek6q0" path="res://assets/enemy/enemy01.png" id="3_d564q"]
 [ext_resource type="PackedScene" uid="uid://do6lg261pwkhh" path="res://position_indicator.tscn" id="3_gpccr"]
+[ext_resource type="Texture2D" uid="uid://c4p1ha48vao27" path="res://assets/enemy/enemy02.png" id="4_hcet0"]
+[ext_resource type="Texture2D" uid="uid://dcvxmqn7h8gwb" path="res://assets/enemy/enemy03.png" id="5_mt20g"]
+[ext_resource type="Texture2D" uid="uid://criwpk0ux6o2j" path="res://assets/enemy/enemy04.png" id="6_1sy0r"]
+[ext_resource type="Texture2D" uid="uid://ceye5o4wwk766" path="res://assets/enemy/enemy05.png" id="7_b7svq"]
+[ext_resource type="Texture2D" uid="uid://dc5jme1pvikge" path="res://assets/enemy/enemy06.png" id="8_sv63r"]
+[ext_resource type="Texture2D" uid="uid://dpiegc15dybbh" path="res://assets/enemy/enemy07.png" id="9_ht5s2"]
+[ext_resource type="Texture2D" uid="uid://bu4duqbgag8pp" path="res://assets/enemy/enemy08.png" id="10_8hmbf"]
+[ext_resource type="Texture2D" uid="uid://b5somi4ewkmt1" path="res://assets/enemy/enemy09.png" id="11_sqwd4"]
+[ext_resource type="Texture2D" uid="uid://bi6h5cyqjfrox" path="res://assets/enemy/enemy10.png" id="12_jullf"]
+[ext_resource type="Texture2D" uid="uid://drjuv5m7rng7v" path="res://assets/enemy/enemy11.png" id="13_4rqmc"]
+[ext_resource type="Texture2D" uid="uid://d3gtxl0t2nla3" path="res://assets/enemy/enemy12.png" id="14_cq8q5"]
+[ext_resource type="Texture2D" uid="uid://b1aj67xpxihtw" path="res://assets/enemy/enemy13.png" id="15_7n026"]
+[ext_resource type="Texture2D" uid="uid://b7s04k3baw0qb" path="res://assets/enemy/enemy14.png" id="16_6frer"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pk0lj"]
 radius = 27.0
@@ -12,10 +27,62 @@ height = 54.0
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_s2ofl")
+"texture": ExtResource("2_rf5ef")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_d564q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_hcet0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_mt20g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_1sy0r")
 }],
 "loop": true,
-"name": &"idle",
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_b7svq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_sv63r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ht5s2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_8hmbf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_sqwd4")
+}],
+"loop": true,
+"name": &"side",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_jullf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_4rqmc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_cq8q5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_7n026")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_6frer")
+}],
+"loop": true,
+"name": &"up",
 "speed": 5.0
 }]
 
@@ -23,6 +90,7 @@ animations = [{
 bg_color = Color(1, 0, 0, 1)
 
 [node name="Enemy" type="CharacterBody2D"]
+scale = Vector2(2, 2)
 motion_mode = 1
 script = ExtResource("1_q7ji2")
 
@@ -30,9 +98,9 @@ script = ExtResource("1_q7ji2")
 shape = SubResource("CapsuleShape2D_pk0lj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.4, 0.4)
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_vrsmt")
-animation = &"idle"
+animation = &"down"
 
 [node name="NavigationTimer" type="Timer" parent="."]
 autostart = true
@@ -56,7 +124,7 @@ offset_bottom = -30.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_wimga")
 
 [node name="PositionIndicator" parent="." instance=ExtResource("3_gpccr")]
-visible = false
+scale = Vector2(0.552846, 0.552846)
 texture = ExtResource("1_s2ofl")
 label = "enemy"
 

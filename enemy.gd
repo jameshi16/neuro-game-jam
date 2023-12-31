@@ -31,6 +31,21 @@ func _physics_process(delta):
 			var player: Player = collision.get_collider()
 			player.enemy_damages_player(self)
 
+		var facing_direction = (direction - position).normalized()
+		# I drew the sprite the other direction, go me
+		if facing_direction.x < 0:
+			$AnimatedSprite2D.flip_h = false
+			$AnimatedSprite2D.play("side")
+		elif facing_direction.x > 0: # we use an elif because if equal, don't change animation
+			$AnimatedSprite2D.flip_h = true
+			$AnimatedSprite2D.play("side")
+
+		if abs(facing_direction.y) > abs(facing_direction.x):
+			if facing_direction.y < 0:
+				$AnimatedSprite2D.play("up")
+			if facing_direction.y > 0:
+				$AnimatedSprite2D.play("down")
+
 	move_and_collide(acceleration * delta)
 
 

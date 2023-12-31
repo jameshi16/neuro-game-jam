@@ -1992,7 +1992,7 @@ wait_time = 3.0
 one_shot = true
 
 [node name="MapTimer" type="Timer" parent="."]
-wait_time = 30.0
+wait_time = 120.0
 one_shot = true
 
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
