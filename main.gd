@@ -1,6 +1,8 @@
 extends Node
 class_name Main
 
+const Balloon = preload("res://dialogue/balloon.tscn")
+
 @export var item_scene: PackedScene
 @export var enemies: Array[PackedScene]
 
@@ -83,7 +85,7 @@ func pan_entire_world():
 
 func load_fixed_level(scene: PackedScene):
 	current_special_level = scene.instantiate()
-	current_special_level.initialize_from_main($Player)
+	current_special_level.initialize_from_main($Player, $UI)
 	current_special_level.item_picked.connect(update_score)
 	current_special_level.level_completed.connect(reset)
 	assert(current_special_level is SpecialLevelBase)
@@ -94,6 +96,8 @@ func load_fixed_level(scene: PackedScene):
 
 
 func select_level():
+	clear_foreground_layer()
+	clear_background_layer()
 	# TODO: another useful case for state managers.
 	# clueless
 
@@ -101,6 +105,18 @@ func select_level():
 
 	if !State.cleared_tutorial:
 		load_fixed_level(preload("res://special_levels/tutorial.tscn"))
+		return
+
+	if !State.visited_evil and State.fragments == 1:
+		load_fixed_level(preload("res://special_levels/evil_level.tscn"))
+		return
+
+	if !State.visited_neuro and State.fragments == 3:
+		load_fixed_level(preload("res://special_levels/neuro_level.tscn"))
+		return
+
+	if !State.visited_end and State.fragments == 6:
+		load_fixed_level(preload("res://special_levels/hiyori_level.tscn"))
 		return
 
 	# generate a world here (TODO: tilemap_size is a temporary size)
@@ -116,7 +132,6 @@ func select_level():
 	var path = level_gen.generate_level()
 
 	# fill with the collision tiles first
-	clear_foreground_layer()
 	fill_with_with_collision_tiles()
 	$TileMap.set_cells_terrain_connect(navigation_layer, path, terrain_set, terrain, false)
 
@@ -163,7 +178,7 @@ func _process(delta):
 
 	# special levels cannot be restarted
 	if !restart_cooling_down and Input.is_action_pressed("restart_level") and !current_special_level:
-		reset()
+		game_over(false)
 
 	if !level_began and Input.is_action_just_pressed("start_level"):
 		level_begin()
@@ -184,6 +199,11 @@ func clear_foreground_layer():
 	for i in tilemap_size.x + 2:
 		for j in tilemap_size.y + 2:
 			$TileMap.set_cell(1, Vector2(i - 1, j - 1))
+
+func clear_background_layer():
+	for i in tilemap_size.x + 2:
+		for j in tilemap_size.y + 2:
+			$TileMap.set_cell(0, Vector2(i - 1, j - 1))
 
 func fill_with_with_collision_tiles():
 	for i in tilemap_size.x + 2:
@@ -263,11 +283,35 @@ func free_enemies():
 		enemy.queue_free()
 	enemies_in_scene = []
 
+func _on_note_balloon_complete(_not_used) -> void:
+	print('done')
+	DialogueManager.dialogue_ended.disconnect(_on_note_balloon_complete)
+	game_over(false)
+
+func read_note(note_id: int):
+	$Player.hide()
+	$UI.hide()
+	restart_cooling_down = true
+	DialogueManager.dialogue_ended.connect(_on_note_balloon_complete)
+	var balloon = Balloon.instantiate()
+	get_tree().current_scene.add_child(balloon)
+	balloon.start(load("res://dialogue/special_levels.dialogue"), "note_%d" % note_id)
+
 func game_over(lost: bool):
-	free_items()
+	$MapTimer.stop()
+	clear_background_layer()
+	clear_foreground_layer()
+
 	free_enemies()
+	if State.score / 10 > State.fragments and State.fragments < 6:
+		State.fragments += 1
+		read_note(State.fragments)
+		return
+
+	free_items()
+
 	if lost:
-		State.score = min(State.score - 10, 0)
+		State.score = max(State.score - 10, 0)
 		$UI.hide()
 		$Camera2D.get_node("MapOverviewUI").hide()
 		$GameOver.show()
@@ -282,17 +326,19 @@ func check_cleared():
 
 
 func reset():
-	free_items()
-	free_enemies()
 	level_began = false
 	$GameOver.hide()
 	$UI.update_health(100)
+	$UI.update_score(State.score)
 
 	if current_special_level:
 		current_special_level.queue_free()
 		current_special_level = null
 
 	select_level()
+
+	# increase difficulty based on fragments collected
+	num_enemies = 10 + State.fragments
 
 	pan_entire_world()
 	restart_cooling_down = true

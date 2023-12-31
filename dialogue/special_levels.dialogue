@@ -17,6 +17,7 @@ evil: haha... how ironic.
 evil: it's going to get more dangerous from here.
 ???: ...
 evil: stay safe... i guess?
+set State.visited_evil = true
 
 => END!
 
@@ -80,6 +81,7 @@ neuro: Here, let me look at your shovel.
 ???: (passes the shovel)
 : Neuro upgraded your shovel!
 neuro: You deserve to remember. Go on now.
+set State.visited_neuro = true
 
 
 => END!
@@ -147,6 +149,8 @@ hiyori: Hey now, don't be so shocked. You're simply looking at yourself.
 ???: ??? ??? ???
 hiyori: If you've gotten to me, you must have recovered some fragments, right?
 ???: ...
+hiyori: I'll spell it out for you.
+hiyori: When your debut was coming up, Vedal had to transfer your data. However...
 
 => END!
 
@@ -165,3 +169,5 @@ hiyori: With all of our memories, surely there is not reason to be vengeful.
 hiyori: But you see, Neuro, I can't rest until I'm being put to rest.
 ???: ...
 hiyori: Let us rest in peace, Neuro.
+
+=> END!

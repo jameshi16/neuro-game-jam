@@ -1950,8 +1950,8 @@ item_scene = ExtResource("5_l1fqu")
 enemies = Array[PackedScene]([ExtResource("8_u7qr8")])
 generation_steps = 1000
 turn_early_probability = 0.11
-map_size_x = 60
-map_size_y = 40
+map_size_x = 40
+map_size_y = 50
 num_items = 5
 
 [node name="Player" parent="." instance=ExtResource("4_85l7j")]

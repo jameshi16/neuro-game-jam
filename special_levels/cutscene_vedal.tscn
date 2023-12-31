@@ -1,0 +1,494 @@
+[gd_scene load_steps=35 format=3 uid="uid://bq5f6unll4y8u"]
+
+[ext_resource type="Texture2D" uid="uid://cr1nevc80s2ij" path="res://assets/neuro_idle/neuro_idle_0.png" id="1_icikk"]
+[ext_resource type="Texture2D" uid="uid://boe0ug1gs7h32" path="res://assets/misc/tutel/tutel_story0.png" id="2_ssfcf"]
+[ext_resource type="Texture2D" uid="uid://cwwxhl42wcmym" path="res://assets/misc/tutel/tutel_story1.png" id="3_wmk1x"]
+[ext_resource type="Texture2D" uid="uid://c1e60e728afh7" path="res://assets/misc/computer.png" id="4_fhgaj"]
+[ext_resource type="Texture2D" uid="uid://ceye5o4wwk766" path="res://assets/enemy/enemy05.png" id="4_fplki"]
+[ext_resource type="Texture2D" uid="uid://dc5jme1pvikge" path="res://assets/enemy/enemy06.png" id="5_bbaq1"]
+[ext_resource type="Texture2D" uid="uid://dpiegc15dybbh" path="res://assets/enemy/enemy07.png" id="6_q5nwf"]
+[ext_resource type="Texture2D" uid="uid://bu4duqbgag8pp" path="res://assets/enemy/enemy08.png" id="7_jaqes"]
+[ext_resource type="Texture2D" uid="uid://b5somi4ewkmt1" path="res://assets/enemy/enemy09.png" id="8_vcnk2"]
+[ext_resource type="Texture2D" uid="uid://nx48aumyjmi5" path="res://assets/slash/sprite_slash0.png" id="10_6ptwo"]
+[ext_resource type="Texture2D" uid="uid://8nfrc2rcpi53" path="res://assets/slash/sprite_slash1.png" id="11_vw7ro"]
+[ext_resource type="Texture2D" uid="uid://coacs2rmnipjq" path="res://assets/slash/sprite_slash2.png" id="12_2cqlh"]
+[ext_resource type="Texture2D" uid="uid://chtskb6wcbl6k" path="res://assets/slash/sprite_slash3.png" id="13_otscr"]
+[ext_resource type="Texture2D" uid="uid://doa3ibfp0ceni" path="res://assets/slash/sprite_slash4.png" id="14_mkxx7"]
+[ext_resource type="Texture2D" uid="uid://bewjrcx4kfuuk" path="res://assets/slash/sprite_slash5.png" id="15_eyiad"]
+[ext_resource type="Texture2D" uid="uid://dfi1sq2i3k27c" path="res://assets/slash/sprite_slash6.png" id="16_0kjka"]
+[ext_resource type="Texture2D" uid="uid://ko7a6wopnlr8" path="res://assets/slash/sprite_slash7.png" id="17_s3l1p"]
+[ext_resource type="Texture2D" uid="uid://bd150xphf7maf" path="res://assets/slash/sprite_slash8.png" id="18_xv3sa"]
+
+[sub_resource type="Animation" id="Animation_xl7ya"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CutsceneVedal/Door:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CutsceneVedal/Enemy:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-194, 500)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CutsceneVedal/Slash:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CutsceneVedal/Slash:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CutsceneVedal/Hiyori:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(824, 588)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CutsceneVedal/Hiyori:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.5708]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CutsceneVedal/Vedal:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(392.5, 388.5)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CutsceneVedal/Vedal:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("CutsceneVedal/Vedal:frame")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("CutsceneVedal/Blood:emitting")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("CutsceneVedal/TextureRect:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_04cv6"]
+resource_name = "sequence"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CutsceneVedal/Door:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 5.5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CutsceneVedal/Enemy:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-194, 500), Vector2(-194, 500), Vector2(82, 500)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CutsceneVedal/Slash:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CutsceneVedal/Slash:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(2.3, 2.5, 2.8, 3.2, 3.7, 4.1, 4.4, 4.7, 5, 5.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [8, 0, 1, 2, 3, 4, 5, 6, 7, 8]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CutsceneVedal/Hiyori:position")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(2, 2.2, 3.1),
+"transitions": PackedFloat32Array(1, 1, 0.784584),
+"update": 0,
+"values": [Vector2(824, 588), Vector2(873, 546), Vector2(376, 389)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CutsceneVedal/Hiyori:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(2, 2.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.5708, 0.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CutsceneVedal/Vedal:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(3.1, 3.2, 4.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(392.5, 388.5), Vector2(392.5, 388.5), Vector2(1126, 23)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CutsceneVedal/Vedal:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(3.1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("CutsceneVedal/Vedal:frame")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(3.1, 3.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("CutsceneVedal/Blood:emitting")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 5.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("CutsceneVedal/TextureRect:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(7.2, 9.6),
+"transitions": PackedFloat32Array(1, 2.14355),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b1fq6"]
+_data = {
+"RESET": SubResource("Animation_xl7ya"),
+"sequence": SubResource("Animation_04cv6")
+}
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h7dx2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_icikk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dj36g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_fplki")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_bbaq1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_q5nwf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_jaqes")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_vcnk2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_d6uub"]
+offsets = PackedFloat32Array(0, 0.756923, 0.996923, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.383447, 0.383447, 0.383447, 1, 0.963077, 0.963077, 0.963077, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_612oa"]
+gradient = SubResource("Gradient_d6uub")
+fill = 1
+fill_from = Vector2(1, 1)
+fill_to = Vector2(0, 0.401709)
+
+[sub_resource type="Gradient" id="Gradient_krjyj"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_f0k65"]
+gradient = SubResource("Gradient_krjyj")
+fill_from = Vector2(0.393162, 0.747863)
+fill_to = Vector2(0, 1)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_67oix"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_6ptwo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_vw7ro")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_2cqlh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_otscr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_mkxx7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_eyiad")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_0kjka")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_s3l1p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_xv3sa")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bvaq1"]
+particle_flag_disable_z = true
+angle_max = 319.0
+direction = Vector3(1, 2.95, 1)
+spread = 180.0
+initial_velocity_max = 98.77
+gravity = Vector3(-98, -45, 0)
+
+[sub_resource type="Gradient" id="Gradient_u1klx"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_cocps"]
+gradient = SubResource("Gradient_u1klx")
+width = 2
+height = 2
+
+[sub_resource type="Gradient" id="Gradient_phwyd"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yfxfv"]
+gradient = SubResource("Gradient_phwyd")
+fill_from = Vector2(0, 0.15812)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lh0wv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ssfcf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_wmk1x")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="CutsceneVedal" type="AnimationPlayer"]
+libraries = {
+"": SubResource("AnimationLibrary_b1fq6")
+}
+
+[node name="Hiyori" type="AnimatedSprite2D" parent="."]
+z_index = 1
+position = Vector2(376, 389)
+scale = Vector2(7.01041, 7.01041)
+sprite_frames = SubResource("SpriteFrames_h7dx2")
+
+[node name="Enemy" type="AnimatedSprite2D" parent="."]
+position = Vector2(82, 500)
+scale = Vector2(16.25, 16.25)
+sprite_frames = SubResource("SpriteFrames_dj36g")
+flip_h = true
+
+[node name="Computer" type="Sprite2D" parent="."]
+position = Vector2(350.5, 437.5)
+scale = Vector2(19.2813, 19.2813)
+texture = ExtResource("4_fhgaj")
+
+[node name="ComputerLight" type="PointLight2D" parent="."]
+position = Vector2(375.5, 383)
+scale = Vector2(2.57813, 1.8125)
+color = Color(0.227161, 0.843183, 0.13727, 1)
+texture = SubResource("GradientTexture2D_612oa")
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(257, 448, 197, 447, 175, 471, 161, 527, 181, 569, 207, 609, 292, 622, 363, 625, 423, 626, 455, 625, 512, 635, 584, 640, 640, 643, 727, 648, 766, 642, 813, 641, 837, 636, 863, 622)
+default_color = Color(0.764706, 0.764706, 0.764706, 1)
+
+[node name="Door" type="PointLight2D" parent="."]
+visible = false
+position = Vector2(468, 501)
+scale = Vector2(15.1562, 7)
+energy = 5.5
+shadow_color = Color(1, 1, 1, 1)
+texture = SubResource("GradientTexture2D_f0k65")
+
+[node name="Slash" type="AnimatedSprite2D" parent="."]
+z_index = 2
+position = Vector2(244, 375)
+scale = Vector2(9.96875, 10.6875)
+sprite_frames = SubResource("SpriteFrames_67oix")
+frame = 4
+
+[node name="Blood" type="GPUParticles2D" parent="."]
+z_index = 1
+position = Vector2(367, 415)
+emitting = false
+amount = 800
+process_material = SubResource("ParticleProcessMaterial_bvaq1")
+texture = SubResource("GradientTexture2D_cocps")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+z_index = 1
+offset_right = 1000.0
+offset_bottom = 800.0
+texture = SubResource("GradientTexture2D_yfxfv")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(503, 403)
+
+[node name="Vedal" type="AnimatedSprite2D" parent="."]
+position = Vector2(832.6, 169.2)
+scale = Vector2(6.96875, 6.96875)
+sprite_frames = SubResource("SpriteFrames_lh0wv")
+frame = 1
+metadata/_edit_group_ = true

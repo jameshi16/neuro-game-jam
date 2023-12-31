@@ -5,9 +5,11 @@ signal item_picked
 signal level_completed
 
 var player
+var hud
 
-func initialize_from_main(main_player: Player):
+func initialize_from_main(main_player: Player, main_hud: HUD):
 	player = main_player
+	hud = main_hud
 
 func level_began():
 	pass

@@ -3,6 +3,7 @@ class_name Player
 signal hit
 signal player_died
 signal stamina_changed
+signal finished_digging
 
 # add a variable that adjusts speed
 
@@ -110,6 +111,10 @@ func process_keys(_delta):
 func _ready():
 	screen_size = get_viewport_rect().size
 	shovel.attack_landed.connect(player_damages_node)
+
+	# if the player is a returning player, use the arg sprite
+	if State.visited_end:
+		$AnimatedSprite2D.sprite_frames = preload("res://arg_swapin.tres")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -253,6 +258,7 @@ func _on_digging_timer_timeout() -> void:
 	digging = false
 	for item in items_in_contact:
 		item.collect()
+	finished_digging.emit()
 
 
 func _on_digging_progress_timer_timeout() -> void:

@@ -17,6 +17,10 @@ func attack(direction: Vector2):
 	if !cooldown_timer.is_stopped() or player.stamina < stamina:
 		return
 
+	if State.visited_neuro:
+		cooldown_timer_duration = 0.25
+		stamina = 30
+
 	player.update_stamina(player.stamina - stamina)
 	var relative_position = direction.normalized()
 	var slash_node = preload("res://slash.tscn")
@@ -28,5 +32,10 @@ func attack(direction: Vector2):
 	cooldown_timer.start()
 
 func apply_shovel_effects_on_enemy(enemy: Enemy):
-	enemy.receive_damage(damage)
-	enemy.knockback(player.position, 800)
+	var full_damage = damage
+	var full_knockback = 800
+	if State.visited_evil:
+		full_damage *= 5
+		full_knockback = 1000
+	enemy.receive_damage(full_damage)
+	enemy.knockback(player.position, full_knockback)
