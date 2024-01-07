@@ -25,6 +25,7 @@ var tilemap_scale
 var screen_size
 var restart_cooling_down = true
 var level_began = false
+var curr_rnd_fragment_acquired = false
 
 # Game variables
 var items_to_collect: Array[Item] = []
@@ -120,6 +121,7 @@ func select_level():
 		return
 
 	# generate a world here (TODO: tilemap_size is a temporary size)
+	curr_rnd_fragment_acquired = false
 	$UI.get_node("Time").show()
 	current_special_level = null
 	var bounding_box = Rect2(Vector2(0, 0), tilemap_size)
@@ -303,9 +305,10 @@ func game_over(lost: bool):
 	clear_foreground_layer()
 
 	free_enemies()
-	if State.score / 10 > State.fragments and State.fragments < 6:
+	if State.score / 10 >= State.fragments and State.fragments < 6 and !curr_rnd_fragment_acquired:
 		State.fragments += 1
 		read_note(State.fragments)
+		curr_rnd_fragment_acquired = true
 		return
 
 	free_items()
