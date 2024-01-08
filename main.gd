@@ -44,8 +44,8 @@ func ready_up_camera():
 	var center = Vector2(full_size.x / 2, full_size.y / 2)
 	$Camera2D.set_position(center)
 	var larger_scale = min(
-		screen_size.x / float(tilemap_scale.x * tilemap_size.x),
-		screen_size.y / float(tilemap_scale.y * tilemap_size.y)
+		screen_size.x / float(tilemap_scale.x * tilemap_size.x * 1.1),
+		screen_size.y / float(tilemap_scale.y * tilemap_size.y * 1.1)
 	)
 	$Camera2D.set_zoom(Vector2(larger_scale, larger_scale))
 	#$Camera2D.set_limit(
@@ -64,7 +64,9 @@ func level_begin():
 	$Player.reset_camera_view()
 	$UI.show()
 	$Camera2D.get_node("MapOverviewUI").hide()
+	$UI.show_timer()
 	if current_special_level:
+		$UI.hide_timer()
 		current_special_level.level_began()
 		return
 

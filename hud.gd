@@ -30,3 +30,9 @@ func update_stamina(stamina: int):
 
 func update_time(time: int):
 	$Time.text = "Time Left: %d" % time
+
+func hide_timer():
+	$Time.hide()
+
+func show_timer():
+	$Time.show()
