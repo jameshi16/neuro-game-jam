@@ -17,7 +17,10 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 1
 theme_override_font_sizes/font_size = 64
-text = "Somewhere in another world"
+text = "Somewhere in another world
+(-10 score)"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15

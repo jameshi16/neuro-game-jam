@@ -17,7 +17,14 @@ func _process(delta: float) -> void:
 func _on_player_dug() -> void:
 	if can_complete_level:
 		State.visited_end = true
-		level_completed.emit()
+		# credits here
+		cutscene = preload("res://special_levels/cutscene_credits.tscn").instantiate()
+		cutscene.play("sequence")
+
+		add_child(cutscene)
+		hide()
+		cutscene.get_node("Camera2D").make_current()
+		cutscene.animation_finished.connect(_on_credits_ended)
 
 func _on_grave_area_body_entered(body:Node2D) -> void:
 	if body is Player:
@@ -64,3 +71,6 @@ func _on_cutscene_ended(_not_used) -> void:
 	var balloon = Balloon.instantiate()
 	get_tree().current_scene.add_child(balloon)
 	balloon.start(load("res://dialogue/special_levels.dialogue"), "hiyori_2")
+
+func _on_credits_ended(_not_used) -> void:
+	level_completed.emit()
