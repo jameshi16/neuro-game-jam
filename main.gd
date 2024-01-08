@@ -305,7 +305,7 @@ func game_over(lost: bool):
 	clear_foreground_layer()
 
 	free_enemies()
-	if State.score / 10 >= State.fragments and State.fragments < 6 and !curr_rnd_fragment_acquired:
+	if State.score / 30 >= State.fragments and State.fragments < 6 and !curr_rnd_fragment_acquired:
 		State.fragments += 1
 		read_note(State.fragments)
 		curr_rnd_fragment_acquired = true

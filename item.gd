@@ -6,7 +6,7 @@ signal collected
 enum ItemWorth { NONE, LOW, MEDIUM, HIGH, RARE }
 
 var worth_to_score = {
-	ItemWorth.NONE: 0, ItemWorth.LOW: 1, ItemWorth.MEDIUM: 2, ItemWorth.HIGH: 5, ItemWorth.RARE: 10
+	ItemWorth.NONE: 0, ItemWorth.LOW: 2, ItemWorth.MEDIUM: 4, ItemWorth.HIGH: 6, ItemWorth.RARE: 10
 }
 
 var worth_to_color = {

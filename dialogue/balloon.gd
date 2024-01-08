@@ -39,7 +39,7 @@ var dialogue_line: DialogueLine:
 		character_label.text = tr(dialogue_line.character, "dialogue")
 
 		var portrait_path: String = "res://assets/misc/dialogue_%s.png" % dialogue_line.character.to_lower()
-		if portrait and FileAccess.file_exists(portrait_path):
+		if portrait and ResourceLoader.exists(portrait_path):
 			portrait.texture = load(portrait_path)
 		else:
 			portrait.texture = null

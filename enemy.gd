@@ -80,7 +80,7 @@ func receive_damage(damage: int) -> void:
 
 	health -= damage
 	if health <= 0:
-		dead.emit(self, (max_speed + max_health) * 0.01)
+		dead.emit(self, (max_speed + max_health) * 0.005)
 		physics_enabled = false
 		hide()
 	$HealthBar.value = health
