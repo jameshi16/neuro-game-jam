@@ -44,8 +44,8 @@ func ready_up_camera():
 	var center = Vector2(full_size.x / 2, full_size.y / 2)
 	$Camera2D.set_position(center)
 	var larger_scale = min(
-		screen_size.x / float(tilemap_scale.x * tilemap_size.x * 1.1),
-		screen_size.y / float(tilemap_scale.y * tilemap_size.y * 1.1)
+		screen_size.x / float(tilemap_scale.x * tilemap_size.x * 1.5),
+		screen_size.y / float(tilemap_scale.y * tilemap_size.y * 1.5)
 	)
 	$Camera2D.set_zoom(Vector2(larger_scale, larger_scale))
 	#$Camera2D.set_limit(
